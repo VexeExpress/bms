@@ -16,70 +16,77 @@
 
 @layer base {
   @font-face {
-    font-family: 'Rounded';
-    src: url('/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Ultralight.otf') format('opentype');
+    font-family: "Rounded";
+    src: url("/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Ultralight.otf")
+      format("opentype");
     font-weight: 100;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Rounded';
-    src: url('/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Thin.otf') format('opentype');
+    font-family: "Rounded";
+    src: url("/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Thin.otf") format("opentype");
     font-weight: 200;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Rounded';
-    src: url('/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Light.otf') format('opentype');
+    font-family: "Rounded";
+    src: url("/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Light.otf")
+      format("opentype");
     font-weight: 300;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Rounded';
-    src: url('/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Regular.otf') format('opentype');
+    font-family: "Rounded";
+    src: url("/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Regular.otf")
+      format("opentype");
     font-weight: 400;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Rounded';
-    src: url('/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Medium.otf') format('opentype');
+    font-family: "Rounded";
+    src: url("/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Medium.otf")
+      format("opentype");
     font-weight: 500;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Rounded';
-    src: url('/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Semibold.otf') format('opentype');
+    font-family: "Rounded";
+    src: url("/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Semibold.otf")
+      format("opentype");
     font-weight: 600;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Rounded';
-    src: url('/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Bold.otf') format('opentype');
+    font-family: "Rounded";
+    src: url("/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Bold.otf") format("opentype");
     font-weight: 700;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Rounded';
-    src: url('/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Heavy.otf') format('opentype');
+    font-family: "Rounded";
+    src: url("/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Heavy.otf")
+      format("opentype");
     font-weight: 800;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Rounded';
-    src: url('/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Black.otf') format('opentype');
+    font-family: "Rounded";
+    src: url("/fonts/SF-Pro-Rounded/SF-Pro-Rounded-Black.otf")
+      format("opentype");
     font-weight: 900;
     font-style: normal;
   }
 
   html {
-    font-family: 'Rounded', sans-serif;
+    font-family: "Rounded", sans-serif;
     @apply antialiased;
   }
 
@@ -91,6 +98,6 @@
 
 @layer utilities {
   .font-rounded {
-    font-family: 'Rounded', sans-serif;
+    font-family: "Rounded", sans-serif;
   }
 }
