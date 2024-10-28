@@ -1,0 +1,30 @@
+name: "PR Format & Lint"
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  pr_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20" # Adjust based on your Node version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Prettier Formatting
+        run: npm run format
+
+      - name: Run ESLint
+        run: npm run lint
+        env:
+          CI: true
