@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-rounded">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

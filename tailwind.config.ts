@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        inter: "Inter, Helvetica, Arial, sans-serif",
+        rounded: "Rounded, Helvetica, Arial, sans-serif",
       },
       colors: {
         background: "var(--background)",
