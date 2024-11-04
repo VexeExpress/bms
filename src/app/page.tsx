@@ -8,13 +8,13 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-5 text-center">
-          <span className="text-[18px] font-semibold text-[#0072bc] font-rounded">
+          <span className="font-rounded text-[18px] font-semibold text-[#0072bc]">
             Chúc bạn có một ngày làm việc hiệu quả!
           </span>
         </div>
         {/*LoginForm*/}
         <div className="m-5 text-center">
-          <span className="p-5 text-[12px] italic text-[#0a2e5c] font-rounded">
+          <span className="p-5 font-rounded text-[12px] italic text-[#0a2e5c]">
             Liên hệ Hotline: 0877 71 7575 nếu gặp sự cố đăng nhập
           </span>
         </div>

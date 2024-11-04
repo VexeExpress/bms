@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,6 +15,7 @@ import {
   MenuItem,
   Paper,
   Toolbar,
+  Typography,
 } from "@mui/material";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -23,21 +25,24 @@ import {
   Notifications,
   Airplay,
   AccountCircle,
-  ConfirmationNumber,
   ExpandLess,
   ExpandMore,
-  Widgets,
-  Leaderboard,
-  EditNote,
-  Camera,
-  PanTool,
-  Inbox,
   ChevronRight,
   ChevronLeft,
+  Dashboard,
+  LocalActivity,
+  DirectionsBus,
+  FactCheck,
+  BarChart,
+  AssignmentInd,
+  ManageAccounts,
+  Settings,
+  StarBorder,
 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useState } from "react";
 import Link from "next/link";
+import BookOnline from "@mui/icons-material/BookOnline";
 const drawerWidth = 260;
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -120,98 +125,8 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
-  const [open2, setOpen2] = React.useState(false);
-  const [open3, setOpen3] = React.useState(false);
-  const [open4, setOpen4] = React.useState(false);
-  const [open5, setOpen5] = React.useState(false);
-  const [open6, setOpen6] = React.useState(false);
-  const [open7, setOpen7] = React.useState(false);
-  const [open8, setOpen8] = React.useState(false);
-  const handleDrawerClose = () => {
-    setOpen(false);
-    setOpen2(false);
-    setOpen3(false);
-    setOpen4(false);
-    setOpen5(false);
-    setOpen6(false);
-    setOpen7(false);
-    setOpen8(false);
-  };
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleClick2 = () => {
-    setOpen2(!open2);
-    setOpen(true);
-    setOpen3(false);
-    setOpen4(false);
-    setOpen5(false);
-    setOpen6(false);
-    setOpen7(false);
-    setOpen8(false);
-  };
-  const handleClick3 = () => {
-    setOpen3(!open3);
-    setOpen(true);
-    setOpen2(false);
-    setOpen4(false);
-    setOpen5(false);
-    setOpen6(false);
-    setOpen7(false);
-    setOpen8(false);
-  };
-  const handleClick4 = () => {
-    setOpen4(!open4);
-    setOpen(true);
-    setOpen2(false);
-    setOpen3(false);
-    setOpen5(false);
-    setOpen6(false);
-    setOpen7(false);
-    setOpen8(false);
-  };
-  const handleClick5 = () => {
-    setOpen5(!open5);
-    setOpen(true);
-    setOpen2(false);
-    setOpen3(false);
-    setOpen4(false);
-    setOpen6(false);
-    setOpen7(false);
-    setOpen8(false);
-  };
-  const handleClick6 = () => {
-    setOpen6(!open6);
-    setOpen(true);
-    setOpen2(false);
-    setOpen3(false);
-    setOpen4(false);
-    setOpen5(false);
-    setOpen7(false);
-    setOpen8(false);
-  };
-  const handleClick7 = () => {
-    setOpen7(!open7);
-    setOpen(true);
-    setOpen2(false);
-    setOpen3(false);
-    setOpen4(false);
-    setOpen5(false);
-    setOpen6(false);
-    setOpen8(false);
-  };
-  const handleClick8 = () => {
-    setOpen8(!open8);
-    setOpen(true);
-    setOpen2(false);
-    setOpen3(false);
-    setOpen4(false);
-    setOpen5(false);
-    setOpen6(false);
-    setOpen7(false);
-  };
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [accountAnchorEl, setAccountAnchorEl] = useState<null | HTMLElement>(
     null,
@@ -227,95 +142,154 @@ export default function MainLayout({
     setAnchorEl(null);
     setAccountAnchorEl(null);
   };
-  const menuHanhKhach = [
-    { href: "/ticket-02/ticket-sales", label: "1.1 Vé hành khách" },
+
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [expandedSubIndex, setExpandedSubIndex] = useState<{
+    [key: number]: number | null;
+  }>({});
+
+  const handleClickMenu = (index: number) => {
+    setSelectedIndex((prevIndex) => (prevIndex === index ? null : index));
+    setOpen(true);
+  };
+
+  const handleSubClick = (sectionIndex: number, itemIndex: number) => {
+    setExpandedSubIndex((prevState) => ({
+      ...prevState,
+      [sectionIndex]: prevState[sectionIndex] === itemIndex ? null : itemIndex,
+    }));
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+    setSelectedIndex(null);
+    setExpandedSubIndex({});
+  };
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const menuSections = [
     {
-      href: "/ticket-02/report-detail-ticket",
-      label: "1.2 Tra cứu thông tin vé",
+      label: "Điều hành",
+      icon: <DirectionsBus />,
+      items: [
+        {
+          label: "Điều hành xe",
+          href: "/ticket-02/bus-management",
+        },
+        {
+          label: "Điều hành xe trung chuyển",
+          href: "/ticket-02/transit",
+        },
+        {
+          label: "Kích hoạt app",
+          href: "/ticket-02/checkup",
+        },
+      ],
     },
     {
-      href: "/ticket-02/report-by-agency",
-      label: "1.3 Báo cáo công nợ đại lý",
+      label: "QL Bán vé",
+      icon: <FactCheck />,
+      items: [
+        {
+          label: "Thu chi theo chuyến",
+          href: "/ticket-02/revenue",
+        },
+        {
+          label: "Hợp đồng điện tử",
+          href: "/ticket-02/e-contract",
+        },
+        {
+          label: "Hoá đơn/Vé điện tử",
+          href: "/ticket-02/e-invoice",
+        },
+        {
+          label: "Danh sách chuyển khoản",
+          href: "/ticket-02/list-transfer",
+        },
+        {
+          label: "Xe hợp đồng",
+          href: "/ticket-02/contract-management",
+        },
+      ],
     },
     {
-      href: "/ticket-02/report-count-trip-driver",
-      label: "1.4 Thống kê chuyến theo tài xế",
+      label: "Báo cáo",
+      icon: <BarChart />,
+      items: [
+        {
+          label: "Báo cáo",
+          href: "/ticket-02/reports",
+        },
+        {
+          label: "Báo cáo tổng hợp",
+          href: "#",
+        },
+      ],
     },
     {
-      href: "/ticket-02/report-cash-by-user",
-      label: "1.5 Báo cáo theo nhân viên",
-    },
-    { href: "/ticket-02/ret", label: "1.6 Yêu cầu xuất vé điện tử" },
-    { href: "/ticket-02/report-data-studio", label: "1.7 Báo cáo" },
-    {
-      href: "/ticket-02/electronic-transport-order",
-      label: "1.8 Lệnh vận chuyển điện tử",
-    },
-    {
-      href: "/ticket-02/electronic-invoice",
-      label: "1.9 Xuất hóa đơn điện tử",
-    },
-  ];
-  const menuHangHoa = [
-    { href: "/ticket-02/goods", label: "2.1 Tra cứu hàng hóa" },
-    { href: "/ticket-02/report-goods", label: "2.2 Báo cáo hàng hóa" },
-    { href: "/ticket-02/goods-by-user", label: "2.3 Hàng hóa theo nhân viên" },
-  ];
-  const menuDieuHanh = [
-    {
-      href: "/ticket-02/assign-transshipment-driver-for-ticket",
-      label: "3.1 Phân tài trung chuyển khách",
-    },
-    { href: "/ticket-02/order-route", label: "3.2 Sắp xếp tuyến" },
-    {
-      href: "/ticket-02/trips-driver-report",
-      label: "3.3 Báo cáo theo tài xế",
+      label: "Khách hàng",
+      icon: <AssignmentInd />,
+      items: [
+        {
+          label: "Quản lý khách hàng",
+          href: "/ticket-02/customers",
+        },
+        {
+          label: "Đánh giá",
+          href: "/ticket-02/company-review",
+        },
+      ],
     },
     {
-      href: "/ticket-02/transshipment-report",
-      label: "3.4 Báo cáo trung chuyển",
+      label: "Nhân sự",
+      icon: <ManageAccounts />,
+      items: [
+        {
+          label: "Thiết bị đăng nhập",
+          href: "/ticket-02/device-login",
+        },
+        {
+          label: "Quản lý nhân viên",
+          href: "/ticket-02/employee-management",
+        },
+        {
+          label: "Quản lý vai trò",
+          href: "/ticket-02/role-management",
+        },
+      ],
     },
-    { href: "/ticket-02/bill-in-trip", label: "3.5 Thu chi chuyến" },
-    { href: "/ticket-02/manage-list-trip", label: "3.6 Danh sách chuyến" },
-    { href: "/ticket-02/trip-operation", label: "3.7 Quản lý chuyến" },
-    { href: "/ticket-02/manage-ingredient", label: "3.8 Nhiên liệu" },
-  ];
-  const menuQuanLy = [
-    { href: "/ticket-02/promotion", label: "4.1 Mã khuyến mãi" },
-    { href: "/ticket-02/cancel-ticket-policy", label: "4.2 Chính sách hủy vé" },
-  ];
-  const menuKhaiBao = [
-    { href: "/ticket-02/user", label: "5.1 Nhân viên" },
-    { href: "/ticket-02/point", label: "5.2 Điểm dừng" },
-    { href: "/ticket-02/route", label: "5.3 Tuyến" },
-    { href: "/ticket-02/seat-map", label: "5.4 Sơ đồ ghế" },
-    { href: "/ticket-02/vehicle", label: "5.5 Phương tiện" },
-    { href: "/ticket-02/plan-for-trip", label: "5.6 Lịch chạy" },
-    { href: "/ticket-02/level-agency", label: "5.7 Cấp đại lý" },
-    { href: "/ticket-02/agency", label: "5.8 Đại lý" },
-    { href: "/ticket-02/office", label: "5.9 Văn phòng" },
-    { href: "/ticket-02/telecom-number", label: "5.10 Số máy tổng đài" },
-  ];
-  const menuHeThong = [
-    { href: "/ticket-02/print-config-ticket", label: "6.1 Tùy chỉnh in vé" },
     {
-      href: "/ticket-02/print-config-seat-map",
-      label: "6.2 Tùy chỉnh in sơ đồ ghế",
+      label: "Cài đặt",
+      icon: <Settings />,
+      items: [
+        {
+          label: "Quản lý nhà xe",
+          href: "#",
+          subItems: [
+            { label: "Văn phòng", href: "/ticket-02/office" },
+            { label: "Phương tiện", href: "/ticket-02/vehicle" },
+            { label: "Tuyến", href: "/ticket-02/route" },
+            { label: "Đại lý", href: "/ticket-02/agent" },
+            { label: "Sơ đồ ghế", href: "/ticket-02/seat" },
+            { label: "Điểm dừng", href: "/ticket-02/point" },
+            { label: "Lịch chạy", href: "/ticket-02/schedule" },
+          ],
+        },
+        {
+          label: "Cấu hình bán vé",
+          href: "#",
+          subItems: [
+            { label: "Giá vé", href: "/ticket-02/fare-configs" },
+            { label: "Giảm giá", href: "/ticket-02/discount-by-stages" },
+          ],
+        },
+        {
+          label: "Cài đặt hệ thống",
+          href: "/ticket-02/system-config",
+        },
+      ],
     },
-    { href: "/ticket-02/print-config-goods", label: "6.3 Tùy chỉnh in hàng" },
-    {
-      href: "/ticket-02/sms-config-display",
-      label: "6.4 Cấu hình gửi tin nhắn",
-    },
-    { href: "/ticket-02/config-ticket-email", label: "6.5 Cấu hình gửi gmail" },
-    {
-      href: "/ticket-02/config-freight-order",
-      label: "6.6 Lệnh vận chuyển hàng hóa",
-    },
-  ];
-  const menuCSKH = [
-    { href: "/ticket-02/report-message", label: "7.1 Báo cáo số dư tài khoản" },
-    { href: "/ticket-02/register-vietqr", label: "7.2 Đăng ký sử dụng VietQR" },
   ];
   return (
     <Box className="flex">
@@ -431,222 +405,162 @@ export default function MainLayout({
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          <ListItemButton
-            onClick={handleClick2}
-            className="flex items-center justify-between font-rounded"
-          >
-            <div className="flex items-center">
-              <ListItemIcon>
-                <ConfirmationNumber />
-              </ListItemIcon>
-              <span>Hành khách</span>
-            </div>
-            {open2 ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-
-          <Collapse in={open2} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {menuHanhKhach.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  passHref
-                  className="w-full py-2 text-left font-rounded hover:text-[#0072bc]"
-                >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <span>{item.label}</span>
-                  </ListItemButton>
-                </Link>
-              ))}
-            </List>
-          </Collapse>
-        </List>
-        <List>
-          <ListItemButton
-            onClick={handleClick3}
-            className="flex items-center justify-between font-rounded"
-          >
-            <div className="flex items-center">
-              <ListItemIcon>
-                <Widgets />
-              </ListItemIcon>
-              <span>Hàng hóa</span>
-            </div>
-            {open3 ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open3} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {menuHangHoa.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  passHref
-                  className="w-full py-2 text-left font-rounded hover:text-[#0072bc]"
-                >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <span>{item.label}</span>
-                  </ListItemButton>
-                </Link>
-              ))}
-            </List>
-          </Collapse>
-        </List>
 
         <List>
-          <ListItemButton
-            onClick={handleClick4}
-            className="flex items-center justify-between font-rounded"
-          >
-            <div className="flex items-center">
-              <ListItemIcon>
-                <Leaderboard />
-              </ListItemIcon>
-              <span>Điều hành</span>
-            </div>
-            {open4 ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open4} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {menuDieuHanh.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  passHref
-                  className="w-full py-2 text-left font-rounded hover:text-[#0072bc]"
-                >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <span>{item.label}</span>
-                  </ListItemButton>
-                </Link>
-              ))}
-            </List>
-          </Collapse>
+          <Link href="/ticket-02/dashboard" passHref>
+            <ListItemButton className="flex items-center justify-between font-rounded">
+              {open ? (
+                <div className="flex items-center">
+                  <ListItemIcon>
+                    <Dashboard />
+                  </ListItemIcon>
+                  <span>Tổng quan</span>
+                </div>
+              ) : (
+                <div className="group flex flex-col items-center hover:text-[#0072bc]">
+                  <ListItemIcon className="text-gray-600 group-hover:text-[#0072bc]">
+                    <Dashboard />
+                  </ListItemIcon>
+                  <span className="ml-[-28px] text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
+                    Tổng quan
+                  </span>
+                </div>
+              )}
+            </ListItemButton>
+          </Link>
+        </List>
+        <List>
+          <Link href="/ticket-02" passHref>
+            <ListItemButton className="flex items-center justify-between font-rounded">
+              {open ? (
+                <div className="flex items-center">
+                  <ListItemIcon>
+                    <LocalActivity />
+                  </ListItemIcon>
+                  <span>Đặt vé</span>
+                </div>
+              ) : (
+                <div className="group flex flex-col items-center hover:text-[#0072bc]">
+                  <ListItemIcon className="text-gray-600 group-hover:text-[#0072bc]">
+                    <LocalActivity />
+                  </ListItemIcon>
+                  <span className="ml-[-31px] text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
+                    Đặt vé
+                  </span>
+                </div>
+              )}
+            </ListItemButton>
+          </Link>
+        </List>
+        <List>
+          <Link href="#" passHref>
+            <ListItemButton className="flex items-center justify-between font-rounded">
+              {open ? (
+                <div className="flex items-center">
+                  <ListItemIcon>
+                    <BookOnline />
+                  </ListItemIcon>
+                  <span>Vé online</span>
+                </div>
+              ) : (
+                <div className="group flex flex-col items-center hover:text-[#0072bc]">
+                  <ListItemIcon className="text-gray-600 group-hover:text-[#0072bc]">
+                    <BookOnline />
+                  </ListItemIcon>
+                  <span className="ml-[-30px] text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
+                    Vé online
+                  </span>
+                </div>
+              )}
+            </ListItemButton>
+          </Link>
         </List>
 
-        <List>
-          <ListItemButton
-            onClick={handleClick5}
-            className="flex items-center justify-between font-rounded"
-          >
-            <div className="flex items-center">
-              <ListItemIcon>
-                <Inbox />
-              </ListItemIcon>
-              <span>Quản lý</span>
-            </div>
-            {open5 ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open5} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {menuQuanLy.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  passHref
-                  className="w-full py-2 text-left font-rounded hover:text-[#0072bc]"
-                >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <span>{item.label}</span>
-                  </ListItemButton>
-                </Link>
-              ))}
-            </List>
-          </Collapse>
-        </List>
+        {menuSections.map((section, sectionIndex) => (
+          <List key={sectionIndex}>
+            <ListItemButton
+              onClick={() => handleClickMenu(sectionIndex)}
+              className="flex items-center justify-between font-rounded"
+            >
+              {open ? (
+                <div className="flex items-center">
+                  <ListItemIcon>{section.icon}</ListItemIcon>
+                  <span>{section.label}</span>
+                </div>
+              ) : (
+                <div className="group flex flex-col items-center hover:text-[#0072bc]">
+                  <ListItemIcon className="text-gray-600 group-hover:text-[#0072bc]">
+                    {section.icon}
+                  </ListItemIcon>
+                  <span className="ml-[-29px] text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
+                    {section.label}
+                  </span>
+                </div>
+              )}
+              {selectedIndex === sectionIndex ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
 
-        <List>
-          <ListItemButton
-            onClick={handleClick6}
-            className="flex items-center justify-between font-rounded"
-          >
-            <div className="flex items-center">
-              <ListItemIcon>
-                <EditNote />
-              </ListItemIcon>
-              <span>Khai báo</span>
-            </div>
-            {open6 ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open6} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {menuKhaiBao.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  passHref
-                  className="w-full py-2 text-left font-rounded hover:text-[#0072bc]"
-                >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <span>{item.label}</span>
-                  </ListItemButton>
-                </Link>
-              ))}
-            </List>
-          </Collapse>
-        </List>
+            <Collapse
+              in={selectedIndex === sectionIndex}
+              timeout="auto"
+              unmountOnExit
+            >
+              <List component="div" disablePadding>
+                {section.items.map((item, itemIndex) => (
+                  <div key={itemIndex}>
+                    <ListItemButton
+                      onClick={() =>
+                        item.subItems
+                          ? handleSubClick(sectionIndex, itemIndex)
+                          : null
+                      }
+                      sx={{ pl: 4 }}
+                      className="flex items-center justify-between font-rounded"
+                    >
+                      <Link
+                        href={item.href}
+                        passHref
+                        className="w-full py-2 text-left font-rounded hover:text-[#0072bc]"
+                      >
+                        <span>{item.label}</span>
+                      </Link>
 
-        <List>
-          <ListItemButton
-            onClick={handleClick7}
-            className="flex items-center justify-between font-rounded"
-          >
-            <div className="flex items-center">
-              <ListItemIcon>
-                <Camera />
-              </ListItemIcon>
-              <span>Hệ thống</span>
-            </div>
-            {open7 ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open7} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {menuHeThong.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  passHref
-                  className="w-full py-2 text-left font-rounded hover:text-[#0072bc]"
-                >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <span>{item.label}</span>
-                  </ListItemButton>
-                </Link>
-              ))}
-            </List>
-          </Collapse>
-        </List>
-
-        <List>
-          <ListItemButton
-            onClick={handleClick8}
-            className="flex items-center justify-between font-rounded"
-          >
-            <div className="flex items-center">
-              <ListItemIcon>
-                <PanTool />
-              </ListItemIcon>
-              <span>CSKH</span>
-            </div>
-            {open8 ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open8} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {menuCSKH.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  passHref
-                  className="w-full py-2 text-left font-rounded hover:text-[#0072bc]"
-                >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <span>{item.label}</span>
-                  </ListItemButton>
-                </Link>
-              ))}
-            </List>
-          </Collapse>
-        </List>
+                      {item.subItems &&
+                        (expandedSubIndex[sectionIndex] === itemIndex ? (
+                          <ExpandLess />
+                        ) : (
+                          <ExpandMore />
+                        ))}
+                    </ListItemButton>
+                    {item.subItems && (
+                      <Collapse
+                        in={expandedSubIndex[sectionIndex] === itemIndex}
+                        timeout="auto"
+                        unmountOnExit
+                      >
+                        <List component="div" disablePadding>
+                          {item.subItems.map((subItem, subIndex) => (
+                            <Link
+                              key={subIndex}
+                              href={subItem.href}
+                              passHref
+                              className="w-full py-2 text-left font-rounded hover:text-[#0072bc]"
+                            >
+                              <ListItemButton sx={{ pl: 8 }}>
+                                <StarBorder fontSize="small" sx={{ mr: 1 }} />
+                                <span>{subItem.label}</span>
+                              </ListItemButton>
+                            </Link>
+                          ))}
+                        </List>
+                      </Collapse>
+                    )}
+                  </div>
+                ))}
+              </List>
+            </Collapse>
+          </List>
+        ))}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }} className="font-rounded">
         <DrawerHeader />
