@@ -253,10 +253,6 @@ export default function MainLayout({
           label: "Quản lý nhân viên",
           href: "/ticket-02/employee-management",
         },
-        {
-          label: "Quản lý vai trò",
-          href: "/ticket-02/role-management",
-        },
       ],
     },
     {
