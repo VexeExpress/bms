@@ -562,7 +562,11 @@ export default function MainLayout({
           </List>
         ))}
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }} className="font-rounded">
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, overflow: "auto" }}
+        className="h-screen w-screen bg-white font-rounded"
+      >
         <DrawerHeader />
         {children}
       </Box>
