@@ -2,7 +2,12 @@ import { useState } from "react";
 import { login } from "../api/authAPI";
 import Toast from "@/lib/Toast";
 import { AxiosError } from "axios";
-import { setStorage_CompanyId, setStorage_CompanyName, setStorage_EmployeeId, setStorage_FullName } from "@/lib/cookie";
+import {
+  setStorage_CompanyId,
+  setStorage_CompanyName,
+  setStorage_EmployeeId,
+  setStorage_FullName,
+} from "@/lib/cookie";
 async function fetchIPAddress() {
   const ipResponse = await fetch("https://api.ipify.org?format=json");
   const ipData = await ipResponse.json();

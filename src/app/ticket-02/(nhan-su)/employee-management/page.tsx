@@ -12,7 +12,7 @@ export default function EmployeeManagementPage() {
   const handleBtnClick = () => {
     router.push("/ticket-02/employee-management/create");
   };
-  const companyId = Number(getStorage_CompanyId())
+  const companyId = Number(getStorage_CompanyId());
   const { employees, loading, error } = useEmployees(companyId);
   return (
     <div className="bg-white p-0">

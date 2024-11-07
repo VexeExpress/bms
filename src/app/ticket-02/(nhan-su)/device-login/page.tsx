@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { getStorage_CompanyId } from "@/lib/cookie";
 import LoadingIndicator from "@/lib/Loading";
 import TableLoginHistory from "@/modules/login_history/components/TableLoginHistory";
@@ -14,7 +14,6 @@ export default function DeviceLoginPage() {
           Thiết bị đăng nhập
         </span>
       </div>
-      
 
       {loading ? (
         <>
@@ -23,7 +22,7 @@ export default function DeviceLoginPage() {
       ) : error ? (
         <p>Error loading employees: {error}</p>
       ) : (
-        <TableLoginHistory data={loginHistory}/>
+        <TableLoginHistory data={loginHistory} />
       )}
     </div>
   );
