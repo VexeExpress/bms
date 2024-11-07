@@ -9,6 +9,7 @@
   transform: none;
   font-size: 17px;
   text-transform: none;
+  margin-top: 25px;
 }
 .error_message {
   font-size: 13px;

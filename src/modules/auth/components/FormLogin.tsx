@@ -62,7 +62,7 @@ const FormLogin: FC<FormLoginProps> = ({
           type="submit"
           variant="contained"
           fullWidth
-          className={`mt-6 font-rounded font-semibold ${formStyle.button_login}`}
+          className={`font-rounded font-semibold ${formStyle.button_login}`}
           disabled={loading}
         >
           Đăng nhập
