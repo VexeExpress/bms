@@ -17,6 +17,7 @@
     "@mui/lab": "^6.0.0-beta.14",
     "@mui/material": "^6.1.6",
     "@mui/styled-engine-sc": "^6.1.5",
+    "@mui/x-data-grid": "^7.22.1",
     "axios": "^1.7.7",
     "next": "14.2.16",
     "react": "^18",

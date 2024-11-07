@@ -225,13 +225,13 @@ export default function CreateEmployeePage() {
           </div>
         </div>
         <div className="w-1/2 space-y-6">
-          <span className="font-semibold">Tài khoản</span>
+          <span className="font-semibold">Tài khoản và quyền truy cập</span>
           <div>
             <label
               htmlFor="username"
               className="mb-2 block font-medium text-black"
             >
-              Tài khoản
+              Tên tài khoản
             </label>
             <TextField
               id="username"
