@@ -1,6 +1,7 @@
 import React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Paper } from "@mui/material";
+import { Employee } from "../types/Employee";
 
 interface AllEmployeesTableProps {
   employees: Employee[];
@@ -9,9 +10,18 @@ const columns: GridColDef[] = [
   { field: "fullName", headerName: "Họ tên", flex: 1 },
   { field: "username", headerName: "Tài khoản", flex: 1 },
   { field: "phone", headerName: "Số điện thoại", flex: 1 },
-  { field: "status", headerName: "Trạng thái", flex: 1, valueGetter: (value, row) => (row.status === 1 ? "Hoạt động" : "Không hoạt động") },
   {
-    field: "role", headerName: "Vai trò", flex: 1, valueGetter: (value, row) =>
+    field: "status",
+    headerName: "Trạng thái",
+    flex: 1,
+    valueGetter: (value, row) =>
+      row.status === 1 ? "Hoạt động" : "Không hoạt động",
+  },
+  {
+    field: "role",
+    headerName: "Vai trò",
+    flex: 1,
+    valueGetter: (value, row) =>
       row.role === 1
         ? "Nhân viên"
         : row.role === 2
@@ -24,10 +34,11 @@ const columns: GridColDef[] = [
   },
 ];
 
-
 const paginationModel = { page: 0, pageSize: 1 };
 
-export const AllEmployeesTable: React.FC<AllEmployeesTableProps> = ({ employees }) => {
+export const AllEmployeesTable: React.FC<AllEmployeesTableProps> = ({
+  employees,
+}) => {
   return (
     <Paper sx={{ height: 700, width: "100%" }}>
       <DataGrid

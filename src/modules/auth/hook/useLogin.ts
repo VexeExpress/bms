@@ -2,7 +2,7 @@ import { useState } from "react";
 import { login } from "../api/authAPI";
 import Toast from "@/lib/Toast";
 import { AxiosError } from "axios";
-
+import { setStorage_CompanyId, setStorage_CompanyName, setStorage_EmployeeId, setStorage_FullName } from "@/lib/cookie";
 async function fetchIPAddress() {
   const ipResponse = await fetch("https://api.ipify.org?format=json");
   const ipData = await ipResponse.json();
@@ -55,36 +55,18 @@ const useLogin = () => {
         browserName,
         operatingSystem,
       );
-
       if (response.status === 200) {
         const responseData = await response.data;
-        console.log("Data: " + JSON.stringify(responseData, null, 2));
+        setStorage_EmployeeId(responseData.id);
+        setStorage_FullName(responseData.fullName);
+        setStorage_CompanyId(responseData.companyId);
+        setStorage_CompanyName(responseData.companyName);
         Toast.success("Đăng nhập thành công!");
       } else {
         switch (response.status) {
           case 400:
             setErrorMessage("Vui lòng kiểm tra lại thông tin đăng nhập!");
             Toast.error("Vui lòng kiểm tra lại thông tin đăng nhập!");
-            break;
-          case 401:
-            setErrorMessage("Mật khẩu không đúng!");
-            Toast.error("Mật khẩu không đúng!");
-            break;
-          case 403:
-            setErrorMessage("Tài khoản của bạn đã bị khóa.");
-            Toast.error("Tài khoản của bạn đã bị khóa.");
-            break;
-          case 404:
-            setErrorMessage("Tài khoản không tồn tại.");
-            Toast.error("Tài khoản không tồn tại.");
-            break;
-          case 423:
-            setErrorMessage("Công ty của bạn đã bị khóa.");
-            Toast.error("Công ty của bạn đã bị khóa.");
-            break;
-          case 500:
-            setErrorMessage("Lỗi hệ thống. Vui lòng thử lại sau.");
-            Toast.error("Lỗi hệ thống. Vui lòng thử lại sau.");
             break;
           default:
             setErrorMessage("Đã xảy ra lỗi không xác định.");

@@ -11,7 +11,9 @@ export const addEmployee = async (employeeData: object) => {
 };
 export const fetchEmployees = async (companyId: number) => {
   try {
-    const response = await apiClient.get(`/employee/list-employee/${companyId}`);
+    const response = await apiClient.get(
+      `/employee/list-employee/${companyId}`,
+    );
     return response.data;
   } catch (error) {
     throw error;
