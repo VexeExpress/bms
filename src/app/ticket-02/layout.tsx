@@ -40,9 +40,10 @@ import {
   StarBorder,
 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import BookOnline from "@mui/icons-material/BookOnline";
+import { getStorage_FullName } from "@/lib/cookie";
 const drawerWidth = 260;
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -287,6 +288,13 @@ export default function MainLayout({
       ],
     },
   ];
+  const [fullNameUser, setFullNameUser] = useState("");
+  useEffect(() => {
+    const name = getStorage_FullName();
+    if (name !== undefined) {
+      setFullNameUser(name);
+    }
+  }, []);
   return (
     <Box className="flex">
       <CssBaseline />
@@ -331,7 +339,7 @@ export default function MainLayout({
           </Paper>
           <Box className="flex flex-grow items-center justify-end font-rounded">
             <div className="pr-2.5">
-              <span>name</span>
+              <span>{fullNameUser}</span>
             </div>
             <div className="ml-2 rounded bg-green-700 px-1.5 py-0.5 font-rounded">
               <span>TK: 5.000.000 đ</span>
