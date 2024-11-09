@@ -28,7 +28,7 @@ type ModalVehicleProps = {
   onClose: () => void;
   mode: "create" | "edit";
   vehicleData: VehicleData | null;
-  onSave: (officeData: NewVehicleData | VehicleData) => void;
+  onSave: (vehicleData: NewVehicleData | VehicleData) => void;
 };
 const ModalVehicle = ({
   open,
@@ -83,10 +83,22 @@ const ModalVehicle = ({
         maintenancePeriod,
         brand,
       };
-      console.log(newVehicle);
+      console.log("Creating new vehicle:", newVehicle);
       onSave(newVehicle);
     } else if (mode === "edit" && vehicleData) {
-      const updatedVehicle: VehicleData = { ...vehicleData, licensePlate };
+      const updatedVehicle = {
+        ...vehicleData,
+        licensePlate,
+        note,
+        phone,
+        typeVehicle,
+        registrationPeriod,
+        status,
+        color,
+        maintenancePeriod,
+        brand,
+      };
+      console.log("Updating vehicle:", updatedVehicle);
       onSave(updatedVehicle);
     }
     onClose();
