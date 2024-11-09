@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import ModalSeatMap from "@/modules/seat/components/ModalSeatMap";
 import { NewSeatMap } from "@/modules/seat/types/NewSeatMap";
 import { SeatMap } from "@/modules/seat/types/SeatMapData";
@@ -9,19 +9,17 @@ import { useState } from "react";
 export default function SeatPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
-  const [selectedSeatMap, setSelectedSeatMap] = useState<SeatMap | null>(
-    null,
-  );
+  const [selectedSeatMap, setSelectedSeatMap] = useState<SeatMap | null>(null);
   const handleAddSeatMapClick = () => {
     setModalMode("create");
     setSelectedSeatMap(null);
     setIsModalOpen(true);
   };
-  const handleEdit = (office: SeatMap) => {
-    setModalMode("edit");
-    setSelectedSeatMap(office);
-    setIsModalOpen(true);
-  };
+  // const handleEdit = (office: SeatMap) => {
+  //   setModalMode("edit");
+  //   setSelectedSeatMap(office);
+  //   setIsModalOpen(true);
+  // };
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -33,9 +31,7 @@ export default function SeatPage() {
   //     deleteVehicle(officeId);
   //   }
   // };
-  const handleSaveSeatMap = async (
-    seatMapData: SeatMap | NewSeatMap,
-  ) => {
+  const handleSaveSeatMap = async (seatMapData: SeatMap | NewSeatMap) => {
     if (modalMode === "create") {
       const newSeatMap: NewSeatMap = {
         ...seatMapData,
