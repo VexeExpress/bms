@@ -28,7 +28,7 @@ type ModalVehicleProps = {
   onClose: () => void;
   mode: "create" | "edit";
   vehicleData: VehicleData | null;
-  onSave: (vehicleData: NewVehicleData | VehicleData) => void;
+  onSave: (vehicleData: NewVehicleData | VehicleData) => Promise<void>;
 };
 const ModalVehicle = ({
   open,
@@ -86,7 +86,7 @@ const ModalVehicle = ({
       console.log("Creating new vehicle:", newVehicle);
       onSave(newVehicle);
     } else if (mode === "edit" && vehicleData) {
-      const updatedVehicle = {
+      const updatedVehicle: VehicleData = {
         ...vehicleData,
         licensePlate,
         note,

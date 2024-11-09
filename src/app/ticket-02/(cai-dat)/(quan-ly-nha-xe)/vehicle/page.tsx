@@ -4,6 +4,7 @@ import LoadingIndicator from "@/lib/Loading";
 import ModalVehicle from "@/modules/vehicle/components/ModalVehicle";
 import TableVehicle from "@/modules/vehicle/components/TableVehicle";
 import useVehicle from "@/modules/vehicle/hook/useVehicle";
+import { NewVehicleData } from "@/modules/vehicle/types/NewVehicleData";
 import { VehicleData } from "@/modules/vehicle/types/VehicleData";
 import { Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
@@ -45,26 +46,29 @@ export default function VehiclePage() {
       deleteVehicle(officeId);
     }
   };
-  // const handleSaveVehicle = async () => {
-  //   let vehicleDataToSave: NewVehicleData | VehicleData;
-  //   if (modalMode === "edit" && selectedVehicle?.id !== undefined) {
-  //     const updatedVehicle: VehicleData = {
-  //       ...selectedVehicle
-  //     };
-  //     console.log("Data update: " + JSON.stringify(updatedVehicle));
-  //     await updateVehicle(updatedVehicle.id, updatedVehicle);
-  //   } else if (modalMode === "create") {
-  //     await createVehicle(vehicleData as NewVehicleData);
+  // const handleSaveVehicle = async (vehicleData: VehicleData) => {
+  //   if (modalMode === "create") {
+  //     console.log("Saving new vehicle:", vehicleData);
+  //     await createVehicle(vehicleData);
+  //   } else if (modalMode === "edit") {
+  //     console.log("Updating vehicle:", vehicleData);
+  //     await updateVehicle(vehicleData.id, vehicleData);
   //   }
-  //   setIsModalOpen(false);
+  //   handleCloseModal();
   // };
-  const handleSaveVehicle = async (vehicleData: VehicleData) => {
+  const handleSaveVehicle = async (
+    vehicleData: VehicleData | NewVehicleData,
+  ) => {
     if (modalMode === "create") {
-      console.log("Saving new vehicle:", vehicleData);
-      await createVehicle(vehicleData);
-    } else if (modalMode === "edit") {
-      console.log("Updating vehicle:", vehicleData);
-      await updateVehicle(vehicleData.id, vehicleData);
+      const newVehicle: NewVehicleData = {
+        ...vehicleData,
+      };
+      console.log("Saving new vehicle:", newVehicle);
+      await createVehicle(newVehicle);
+    } else if (modalMode === "edit" && (vehicleData as VehicleData).id) {
+      const updatedVehicle: VehicleData = vehicleData as VehicleData;
+      console.log("Updating vehicle:", updatedVehicle);
+      await updateVehicle(updatedVehicle.id, updatedVehicle);
     }
     handleCloseModal();
   };

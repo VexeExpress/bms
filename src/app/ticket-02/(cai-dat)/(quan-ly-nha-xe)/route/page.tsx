@@ -4,6 +4,7 @@ import LoadingIndicator from "@/lib/Loading";
 import ModalRoute from "@/modules/route/components/ModalRoute";
 import TableRoute from "@/modules/route/components/TableRoute";
 import useRoute from "@/modules/route/hook/useRoute";
+import { NewRouteData } from "@/modules/route/types/NewRouteData";
 import { RouteData } from "@/modules/route/types/RouteData";
 import { Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
@@ -35,16 +36,21 @@ export default function RoutePage() {
       deleteRoute(routeId);
     }
   };
-  const handleSaveRoute = async (routeData: RouteData) => {
+  const handleSaveRoute = async (routeData: RouteData | NewRouteData) => {
     if (modalMode === "create") {
-      console.log("Saving new route:", routeData);
-      await createRoute(routeData);
-    } else if (modalMode === "edit") {
-      console.log("Updating route:", routeData);
-      await updateRoute(routeData.id, routeData);
+      const newRoute: NewRouteData = {
+        ...routeData,
+      };
+      console.log("Saving new route:", newRoute);
+      await createRoute(newRoute);
+    } else if (modalMode === "edit" && (routeData as RouteData).id) {
+      const updatedRoute: RouteData = routeData as RouteData;
+      console.log("Updating route:", updatedRoute);
+      await updateRoute(updatedRoute.id, updatedRoute);
     }
     handleCloseModal();
   };
+
   return (
     <div className="bg-white p-0">
       <div className="mb-10 flex items-center justify-between">

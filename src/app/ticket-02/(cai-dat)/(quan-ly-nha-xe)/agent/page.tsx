@@ -5,6 +5,7 @@ import ModalAgent from "@/modules/agent/components/ModalAgent";
 import TableAgent from "@/modules/agent/components/TableAgent";
 import useAgent from "@/modules/agent/hook/useAgent";
 import { AgentData } from "@/modules/agent/types/AgentData";
+import { NewAgentData } from "@/modules/agent/types/NewAgentData";
 import { Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { useState } from "react";
@@ -35,13 +36,17 @@ export default function AgentPage() {
       deleteAgent(agentId);
     }
   };
-  const handleSaveAgent = async (agentData: AgentData) => {
+  const handleSaveAgent = async (agentData: AgentData | NewAgentData) => {
     if (modalMode === "create") {
-      console.log("Saving new agent:", agentData);
-      await createAgent(agentData);
-    } else if (modalMode === "edit") {
-      console.log("Updating agent:", agentData);
-      await updateAgent(agentData.id, agentData);
+      const newAgent: NewAgentData = {
+        ...agentData,
+      };
+      console.log("Saving new agent:", newAgent);
+      await createAgent(newAgent);
+    } else if (modalMode === "edit" && (agentData as AgentData).id) {
+      const updatedAgent: AgentData = agentData as AgentData;
+      console.log("Updating agent:", updatedAgent);
+      await updateAgent(updatedAgent.id, updatedAgent);
     }
     handleCloseModal();
   };
