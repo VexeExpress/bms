@@ -339,10 +339,7 @@ export default function MainLayout({
           </Paper>
           <Box className="flex flex-grow items-center justify-end font-rounded">
             <div className="pr-2.5">
-              <span>{fullNameUser}</span>
-            </div>
-            <div className="ml-2 rounded bg-green-700 px-1.5 py-0.5 font-rounded">
-              <span>TK: 5.000.000 đ</span>
+              <span>{fullNameUser || "Đặng Tuấn Thành"}</span>
             </div>
 
             <Badge badgeContent={4} color="secondary" className="ml-5 mr-2.5">

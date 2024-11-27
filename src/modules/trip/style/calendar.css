@@ -1,0 +1,13 @@
+.custom-datepicker {
+  padding: 0.25rem;
+  border-color: rgb(209 213 219 / 1);
+  border-width: 1px;
+  border-radius: 0.375rem;
+  width: 150px;
+  transition: border-color 0.2s ease-in-out;
+}
+.custom-datepicker:focus {
+  border-color: #0072bc;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}

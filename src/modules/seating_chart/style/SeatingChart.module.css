@@ -1,0 +1,69 @@
+.seating_chart {
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+}
+
+.chart_title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 8px;
+}
+
+.seat_row {
+  display: flex;
+}
+
+.seat_item {
+  border: 1px solid #d1d5db;
+  padding: 8px;
+  margin: 4px;
+  border-radius: 4px;
+  background-color: #f3f4f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.seat_input {
+  width: 100%;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  font-weight: 600;
+}
+
+.custom_checkbox {
+  display: none;
+}
+
+.custom_checkbox + label {
+  margin-top: 10px;
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom_checkbox + label::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.custom_checkbox:checked + label {
+  background-color: #4caf50;
+}
+
+.custom_checkbox:checked + label::before {
+  transform: translateX(20px);
+}
