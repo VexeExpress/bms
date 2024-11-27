@@ -17,7 +17,7 @@ export default function Home() {
     <div className="flex h-screen flex-col md:flex-row">
       <div className="flex h-[30vh] w-full flex-col items-center justify-center bg-white shadow-lg md:h-screen md:w-[30%]">
         <div className="text-center">
-          <div className="m-0 max-w-[280px] mb-5">
+          <div className="m-0 mb-5 max-w-[280px]">
             <Image
               src="/static/logo-2.png"
               alt="Logo App"

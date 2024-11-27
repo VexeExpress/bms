@@ -2,27 +2,27 @@
 import Calendar from "@/modules/trip/components/Calendar";
 import SelectRoute from "@/modules/route/components/SelectRoute";
 import ListTrip from "@/modules/trip/components/ListTrip";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useRoute from "@/modules/route/hook/useRoute";
 import { getStorage_CompanyId } from "@/lib/cookie";
 
 export default function TicketPage() {
   const companyId = Number(getStorage_CompanyId());
-  const { routesName} = useRoute(companyId);
+  const { routesName } = useRoute(companyId);
   console.log("List Route:" + routesName);
-  // const [selectedRoute, setSelectedRoute] = useState<{
-  //   id: number;
-  //   name: string;
-  // } | null>(null);
-  // const handleRouteSelect = (route: { id: number; routeName: string }) => {
-  //   setSelectedRoute(route);
-  //   console.log("Tuyến đường được chọn:", route);
-  // };
-  // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  // const handleDateChange = (date: Date | null) => {
-  //   setSelectedDate(date);
-  //   console.log("Ngày được chọn:", date);
-  // };
+  const [selectedRoute, setSelectedRoute] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
+  const handleRouteSelect = (route: { id: number; routeName: string }) => {
+    setSelectedRoute(route);
+    console.log("Tuyến đường được chọn:", route);
+  };
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    console.log("Ngày được chọn:", date);
+  };
   const calendarRef = useRef<{ setToday: () => void } | null>(null);
   const handleTodayClick = () => {
     if (calendarRef.current) {
