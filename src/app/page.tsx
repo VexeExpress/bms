@@ -17,19 +17,19 @@ export default function Home() {
     <div className="flex h-screen flex-col md:flex-row">
       <div className="flex h-[30vh] w-full flex-col items-center justify-center bg-white shadow-lg md:h-screen md:w-[30%]">
         <div className="text-center">
-          <div className="m-0 max-w-[250px]">
+          <div className="m-0 max-w-[280px] mb-5">
             <Image
-              src="/static/logo.png"
+              src="/static/logo-2.png"
               alt="Logo App"
               layout="responsive"
-              width={250}
-              height={100}
+              width={270}
+              height={120}
             />
           </div>
         </div>
 
         <div className="mt-5 text-center">
-          <span className="font-rounded text-[18px] font-semibold text-[#0072bc]">
+          <span className="font-rounded text-[16px] font-semibold text-[#0072bc]">
             Chúc bạn có một ngày làm việc hiệu quả!
           </span>
         </div>
