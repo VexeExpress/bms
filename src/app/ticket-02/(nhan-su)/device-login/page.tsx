@@ -20,7 +20,7 @@ export default function DeviceLoginPage() {
           <LoadingIndicator />
         </>
       ) : error ? (
-        <p>Error loading employees: {error}</p>
+        <p>Error loading login history: {error}</p>
       ) : (
         <TableLoginHistory data={loginHistory} />
       )}

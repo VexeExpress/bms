@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
-import { RouteData } from "../types/RouteData";
-import {
-  createRouteByCompanyId,
-  deleteRouteById,
-  getListRouteByCompanyId,
-  updateRouteById,
-} from "../api/routeAPI";
-import { NewRouteData } from "../types/NewRouteData";
+import { AgentData } from "../types/AgentData";
 import Toast from "@/lib/Toast";
 import axios from "axios";
+import { NewAgentData } from "../types/NewAgentData";
+import {
+  createAgentByCompanyId,
+  deleteAgentById,
+  getListAgentByCompanyId,
+  updateAgentById,
+} from "../api/agentAPI";
 
-const useRoute = (companyId: number) => {
-  const [route, setRoute] = useState<RouteData[]>([]);
+const useAgent = (companyId: number) => {
+  const [agent, setAgent] = useState<AgentData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   useEffect(() => {
-    const fetchRoute = async () => {
+    const fetchVehicle = async () => {
       setLoading(true);
       try {
-        const response = await getListRouteByCompanyId(companyId);
-        setRoute(response.data);
+        const response = await getListAgentByCompanyId(companyId);
+        setAgent(response.data);
         setLoading(false);
       } catch (error: unknown) {
         if (error instanceof Error) {
@@ -31,15 +31,15 @@ const useRoute = (companyId: number) => {
       }
     };
     if (companyId) {
-      fetchRoute();
+      fetchVehicle();
     }
   }, [companyId]);
 
-  const createRoute = async (newData: NewRouteData) => {
+  const createAgent = async (newAgentData: NewAgentData) => {
     try {
-      const createRoute = await createRouteByCompanyId(companyId, newData);
-      setRoute((prevRoute) => [...prevRoute, createRoute]);
-      Toast.success("Tạo tuyến mới thành công");
+      const createAgent = await createAgentByCompanyId(companyId, newAgentData);
+      setAgent((prevAgents) => [...prevAgents, createAgent]);
+      Toast.success("Tạo đại lý mới thành công");
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         const { status } = err.response;
@@ -48,7 +48,7 @@ const useRoute = (companyId: number) => {
             Toast.error("Dữ liệu đầu vào không hợp lệ. Vui lòng kiểm tra lại.");
             break;
           case 409:
-            Toast.error("Tuyến đã tồn tại trong công ty.");
+            Toast.error("Đại lý đã tồn tại trong công ty.");
             break;
           case 404:
             Toast.error("Dữ liệu công ty không tồn tại");
@@ -61,37 +61,37 @@ const useRoute = (companyId: number) => {
             break;
         }
       } else {
-        Toast.error("Không thể tạo dữ liệu mới. Vui lòng thử lại.");
-        setError("Không thể tạo dữ liệu mới. Vui lòng thử lại.");
+        Toast.error("Không thể tạo đại lý mới. Vui lòng thử lại.");
+        setError("Không thể tạo đại lý mới. Vui lòng thử lại.");
       }
     }
   };
 
-  const updateRoute = async (routeId: number, updatedData: RouteData) => {
+  const updateAgent = async (agentId: number, updatedData: AgentData) => {
     try {
-      const updateRoute = await updateRouteById(routeId, updatedData);
-      setRoute((prevRoute) =>
-        prevRoute.map((route) =>
-          route.id === routeId ? { ...route, ...updateRoute } : route,
+      const updateAgent = await updateAgentById(agentId, updatedData);
+      setAgent((prevAgents) =>
+        prevAgents.map((agent) =>
+          agent.id === agentId ? { ...agent, ...updateAgent } : agent,
         ),
       );
-      Toast.info("Cập nhật tuyến thành công");
+      Toast.info("Cập nhật đại lý thành công");
     } catch (err) {
       if (axios.isAxiosError(err)) {
         switch (err.response?.status) {
           case 404:
-            Toast.error("Không tìm thấy dữ liệu tuyến đã cho.");
+            Toast.error("Không tìm thấy dữ liệu đại lý đã cho.");
             break;
           case 400:
             Toast.error("Dữ liệu cập nhật không hợp lệ.");
             break;
           case 500:
             setError("Lỗi hệ thống, vui lòng thử lại sau.");
-            Toast.error("Lỗi hệ thống khi cập nhật tuyến");
+            Toast.error("Lỗi hệ thống khi cập nhật đại lý");
             break;
           default:
             setError("Có lỗi xảy ra, vui lòng thử lại.");
-            Toast.error("Không thể cập nhật tuyến.");
+            Toast.error("Không thể cập nhật đại lý.");
         }
       } else {
         setError("Lỗi không xác định.");
@@ -99,37 +99,37 @@ const useRoute = (companyId: number) => {
       }
     }
   };
-  const deleteRoute = async (routeId: number) => {
+  const deleteAgent = async (agentId: number) => {
     try {
-      await deleteRouteById(routeId);
-      setRoute((prevRoute) =>
-        prevRoute.filter((route) => route.id !== routeId),
+      await deleteAgentById(agentId);
+      setAgent((prevAgents) =>
+        prevAgents.filter((agent) => agent.id !== agentId),
       );
-      Toast.info("Xóa tuyến thành công");
+      Toast.info("Xóa đại lý thành công");
     } catch (err) {
       if (axios.isAxiosError(err)) {
         if (err.response?.status === 404) {
-          Toast.error("Không tìm thấy tuyến.");
+          Toast.error("Không tìm thấy đại lý.");
         } else if (err.response?.status === 500) {
           Toast.error("Lỗi hệ thống, vui lòng thử lại sau.");
         } else {
-          setError("Không thể xóa tuyến.");
+          setError("Không thể xóa đại lý.");
           Toast.error("Đã xảy ra lỗi, vui lòng thử lại.");
         }
       } else {
-        setError("Không thể xóa tuyến.");
+        setError("Không thể xóa đại lý.");
         Toast.error("Đã xảy ra lỗi, vui lòng thử lại.");
       }
     }
   };
 
   return {
-    route,
+    agent,
     loading,
     error,
-    createRoute,
-    updateRoute,
-    deleteRoute,
+    createAgent,
+    updateAgent,
+    deleteAgent,
   };
 };
-export default useRoute;
+export default useAgent;

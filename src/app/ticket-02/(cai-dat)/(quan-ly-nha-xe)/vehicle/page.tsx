@@ -46,15 +46,31 @@ export default function VehiclePage() {
       deleteVehicle(officeId);
     }
   };
+  // const handleSaveVehicle = async (vehicleData: VehicleData) => {
+  //   if (modalMode === "create") {
+  //     console.log("Saving new vehicle:", vehicleData);
+  //     await createVehicle(vehicleData);
+  //   } else if (modalMode === "edit") {
+  //     console.log("Updating vehicle:", vehicleData);
+  //     await updateVehicle(vehicleData.id, vehicleData);
+  //   }
+  //   handleCloseModal();
+  // };
   const handleSaveVehicle = async (
-    vehicleData: NewVehicleData | VehicleData,
+    vehicleData: VehicleData | NewVehicleData,
   ) => {
     if (modalMode === "create") {
-      await createVehicle(vehicleData as NewVehicleData);
-    } else if (modalMode === "edit" && selectedVehicle?.id !== undefined) {
-      await updateVehicle(selectedVehicle.id, selectedVehicle as VehicleData);
+      const newVehicle: NewVehicleData = {
+        ...vehicleData,
+      };
+      console.log("Saving new vehicle:", newVehicle);
+      await createVehicle(newVehicle);
+    } else if (modalMode === "edit" && (vehicleData as VehicleData).id) {
+      const updatedVehicle: VehicleData = vehicleData as VehicleData;
+      console.log("Updating vehicle:", updatedVehicle);
+      await updateVehicle(updatedVehicle.id, updatedVehicle);
     }
-    setIsModalOpen(false);
+    handleCloseModal();
   };
   return (
     <div className="bg-white p-0">
