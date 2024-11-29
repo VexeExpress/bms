@@ -1,5 +1,5 @@
-"use client"
-import { getStorage_CompanyId, getStorage_CompanyName, getStorage_EmployeeId, getStorage_FullName, getStorage_OfficeId, setStorage_OfficeId } from "@/lib/cookie";
+"use client";
+import { getStorage_CompanyId, setStorage_OfficeId } from "@/lib/cookie";
 import LoadingIndicator from "@/lib/Loading";
 import useOfficeName from "@/modules/office/hook/useOfficeName";
 import { Button, MenuItem, Select, SelectChangeEvent } from "@mui/material";
@@ -19,14 +19,13 @@ export default function RoomWorkPage() {
     setStorage_OfficeId(selectedOffice);
     router.push("/ticket-02");
   };
-  const userId = Number(getStorage_EmployeeId());
-  const userName = getStorage_FullName();
-  const companyName = getStorage_CompanyName();
-  const officeId = getStorage_OfficeId();
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 p-4">
       <img src="/static/logo-2.png" alt="App Logo" className="mb-8 w-[400px]" />
-      <h2 className="text-[20px] font-semibold text-[#0072bc] mb-4">Lựa chọn văn phòng làm việc</h2>
+      <h2 className="mb-4 text-[20px] font-semibold text-[#0072bc]">
+        Lựa chọn văn phòng làm việc
+      </h2>
       <Select
         value={selectedOffice}
         onChange={handleOfficeChange}
@@ -37,16 +36,20 @@ export default function RoomWorkPage() {
           Chọn văn phòng
         </MenuItem>
         {loading ? (
-          <MenuItem disabled style={{ height: '100px' }}>
+          <MenuItem disabled style={{ height: "100px" }}>
             <LoadingIndicator />
           </MenuItem>
         ) : error ? (
-          <MenuItem disabled className="text-red-500 font-rounded">
+          <MenuItem disabled className="font-rounded text-red-500">
             Lỗi hệ thống. Vui lòng đăng nhập lại
           </MenuItem>
         ) : (
           officeName.map((office) => (
-            <MenuItem key={office.id} value={office.id} className="font-rounded">
+            <MenuItem
+              key={office.id}
+              value={office.id}
+              className="font-rounded"
+            >
               {office.officeName}
             </MenuItem>
           ))
@@ -64,5 +67,3 @@ export default function RoomWorkPage() {
     </div>
   );
 }
-
-

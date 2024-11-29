@@ -2,7 +2,7 @@ import { useState } from "react";
 import { login } from "../api/authAPI";
 import Toast from "@/lib/Toast";
 import { AxiosError } from "axios";
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import {
   setStorage_CompanyId,
@@ -12,10 +12,16 @@ import {
   setStorage_Role,
   setStorage_Token,
 } from "@/lib/cookie";
+interface DecodedToken {
+  userId: string
+  companyId: string
+  role: string
+
+}
 const decodeToken = (token: string) => {
   try {
-    const decoded: any = jwtDecode(token);
-    return decoded; 
+    const decoded: DecodedToken = jwtDecode(token);
+    return decoded;
   } catch (error) {
     console.error("Token không hợp lệ:", error);
     return null;
@@ -85,7 +91,7 @@ const useLogin = () => {
           setStorage_FullName(responseData.fullName);
           setStorage_CompanyName(responseData.companyName);
           setStorage_Role(role);
-          router.push('/room-work');
+          router.push("/room-work");
         }
         Toast.success("Đăng nhập thành công!");
       } else {

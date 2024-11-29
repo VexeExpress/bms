@@ -1,4 +1,4 @@
 export interface OfficeNameData {
-    id: number;
-    officeName: string;
+  id: number;
+  officeName: string;
 }

@@ -45,9 +45,11 @@ export const createOfficeByCompanyId = async (
 };
 export const getOfficeNameByCompanyId = async (companyId: number) => {
   try {
-    const response = await apiClient.get(`/office/list-office-name/${companyId}`);
+    const response = await apiClient.get(
+      `/office/list-office-name/${companyId}`,
+    );
     return response.data;
   } catch (error) {
     throw error;
   }
-}
+};

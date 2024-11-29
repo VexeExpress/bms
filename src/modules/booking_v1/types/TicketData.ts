@@ -1,5 +1,4 @@
 export interface TicketData {
-  filter(arg0: (t: any) => boolean): any;
   id: number;
   ticketFloor: number;
   ticketRow: number;
@@ -18,3 +17,13 @@ export interface TicketData {
   employeeName: string;
   officeName: string;
 }
+export interface TicketList {
+  filter: (arg0: (t: TicketData) => boolean) => TicketData[];
+}
+
+// // Example usage
+// const tickets: TicketData[] = [
+//   // array of ticket data
+// ];
+
+// const filteredTickets = tickets.filter(t => t.ticketStatus);

@@ -43,9 +43,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import BookOnline from "@mui/icons-material/BookOnline";
-import { getStorage_FullName, getStorage_Token, removeCompanyId, removeCompanyName, removeEmployeeId, removeFullName, removeOfficeId, removeRole, removeToken } from "@/lib/cookie";
-import { useRouter } from 'next/navigation';
-import '../../lib/style/layout.css';
+import {
+  getStorage_FullName,
+  getStorage_Token,
+  removeCompanyId,
+  removeCompanyName,
+  removeEmployeeId,
+  removeFullName,
+  removeOfficeId,
+  removeRole,
+  removeToken,
+} from "@/lib/cookie";
+import { useRouter } from "next/navigation";
+import "../../lib/style/layout.css";
 const drawerWidth = 260;
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -304,7 +314,7 @@ export default function MainLayout({
       setFullNameUser(name);
     }
   }, []);
-  
+
   const handleLogout = () => {
     removeToken();
     removeEmployeeId();
@@ -313,7 +323,7 @@ export default function MainLayout({
     removeCompanyName();
     removeRole();
     removeOfficeId();
-    router.push('/');
+    router.push("/");
   };
   return (
     <Box className="flex">
@@ -428,7 +438,11 @@ export default function MainLayout({
         <Divider />
 
         <List>
-          <Link className="item-navbar-custom" href="/ticket-02/dashboard" passHref>
+          <Link
+            className="item-navbar-custom"
+            href="/ticket-02/dashboard"
+            passHref
+          >
             <ListItemButton className="flex items-center justify-between font-rounded">
               {open ? (
                 <div className="flex items-center">
@@ -439,7 +453,7 @@ export default function MainLayout({
                 </div>
               ) : (
                 <div className="group flex flex-col items-center hover:text-[#0072bc]">
-                  <ListItemIcon className="text-gray-600 justify-center group-hover:text-[#0072bc]">
+                  <ListItemIcon className="justify-center text-gray-600 group-hover:text-[#0072bc]">
                     <Dashboard />
                   </ListItemIcon>
                   <span className="text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
@@ -462,7 +476,7 @@ export default function MainLayout({
                 </div>
               ) : (
                 <div className="group flex flex-col items-center hover:text-[#0072bc]">
-                  <ListItemIcon className="text-gray-600 justify-center group-hover:text-[#0072bc]">
+                  <ListItemIcon className="justify-center text-gray-600 group-hover:text-[#0072bc]">
                     <LocalActivity />
                   </ListItemIcon>
                   <span className="text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
@@ -485,7 +499,7 @@ export default function MainLayout({
                 </div>
               ) : (
                 <div className="group flex flex-col items-center hover:text-[#0072bc]">
-                  <ListItemIcon className="text-gray-600 justify-center group-hover:text-[#0072bc]">
+                  <ListItemIcon className="justify-center text-gray-600 group-hover:text-[#0072bc]">
                     <BookOnline />
                   </ListItemIcon>
                   <span className="text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
@@ -510,7 +524,7 @@ export default function MainLayout({
                 </div>
               ) : (
                 <div className="group flex flex-col items-center hover:text-[#0072bc]">
-                  <ListItemIcon  className="text-gray-600 justify-center group-hover:text-[#0072bc]">
+                  <ListItemIcon className="justify-center text-gray-600 group-hover:text-[#0072bc]">
                     {section.icon}
                   </ListItemIcon>
                   <span className="text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
