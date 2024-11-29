@@ -26,11 +26,11 @@ export const createTripAPI = async (newTripData: NewTripData) => {
   } catch (error) {
     throw error;
   }
-}
+};
 export const deleteTripAPI = async (tripId: { id: number }) => {
   try {
     await apiClient.delete(`/trip/delete/${tripId.id}`);
   } catch (error) {
     throw error;
   }
-}
+};

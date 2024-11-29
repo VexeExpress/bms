@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { TripData } from "../types/TripData";
-import { createTripAPI, deleteTripAPI, getTripsByCompanyIdAndRouteIdAndDate } from "../api/tripAPI";
+import {
+  createTripAPI,
+  deleteTripAPI,
+  getTripsByCompanyIdAndRouteIdAndDate,
+} from "../api/tripAPI";
 import { format } from "date-fns";
 import Toast from "@/lib/Toast";
 import { NewTripData } from "../types/NewTripData";
@@ -53,7 +57,7 @@ const useTrips = (
         Toast.error("Đã xảy ra lỗi");
       }
     }
-  }
+  };
   const createTrip = async (newTripData: NewTripData) => {
     try {
       const response = await createTripAPI(newTripData);
@@ -67,14 +71,14 @@ const useTrips = (
         Toast.error("Đã xảy ra lỗi");
       }
     }
-  }
+  };
 
   return {
     trips,
     loading,
     error,
     deleteTrip,
-    createTrip
+    createTrip,
   };
 };
 export default useTrips;

@@ -27,9 +27,7 @@ export const getDriverByCompanyId = async (companyId: number) => {
     throw error;
   }
 };
-export const getAssistantByCompanyId = async (
-  companyId: number,
-) => {
+export const getAssistantByCompanyId = async (companyId: number) => {
   try {
     const response = await apiClient.get(
       `/employee/list-assistant/${companyId}`,

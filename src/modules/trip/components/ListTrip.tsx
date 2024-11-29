@@ -13,10 +13,8 @@ const ListTrip: React.FC<ListTripProps> = ({
   trips,
   onTripSelect,
   selectedDate,
-  onAddTrip
+  onAddTrip,
 }) => {
-
-
   const sortedTrips = trips.sort((a, b) =>
     a.timeDeparture.localeCompare(b.timeDeparture),
   );
@@ -25,7 +23,11 @@ const ListTrip: React.FC<ListTripProps> = ({
     <div className="px-1">
       <div className={t.wrapper}>
         {sortedTrips.map((trip) => (
-          <div key={trip.id} className={t.item_container} onClick={() => onTripSelect(trip)}>
+          <div
+            key={trip.id}
+            className={t.item_container}
+            onClick={() => onTripSelect(trip)}
+          >
             <div className={t.header}>
               <span className="font-rounded text-[18px] font-semibold text-black">
                 {trip.timeDeparture.substring(0, 5)}
@@ -36,12 +38,14 @@ const ListTrip: React.FC<ListTripProps> = ({
             </div>
             <div className={t.body}>
               <span className="text-[12px] font-semibold">
-                T: {Array.isArray(trip?.drivers) && trip.drivers.length > 0
+                T:{" "}
+                {Array.isArray(trip?.drivers) && trip.drivers.length > 0
                   ? trip.drivers.join(", ")
-                  : 'N/A'}
+                  : "N/A"}
               </span>
               <span className="text-[12px] font-semibold">
-                P: {trip.assistant ? trip.assistant.join(", ") : "No assistants"}
+                P:{" "}
+                {trip.assistant ? trip.assistant.join(", ") : "No assistants"}
               </span>
             </div>
             <div className={t.footer}>
@@ -49,11 +53,11 @@ const ListTrip: React.FC<ListTripProps> = ({
             </div>
           </div>
         ))}
-        {selectedDate &&
+        {selectedDate && (
           <button className={t.item_add} onClick={onAddTrip}>
             <Add />
           </button>
-        }
+        )}
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 interface TransferProps {
-    tripId: number;
+  tripId: number;
 }
 const Transfer: React.FC<TransferProps> = ({ tripId }) => {
-    return <div>trung chuyển {tripId}</div>;
-  };
-  
-  export default Transfer;
+  return <div>trung chuyển {tripId}</div>;
+};
+
+export default Transfer;

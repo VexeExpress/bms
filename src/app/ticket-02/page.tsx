@@ -8,16 +8,33 @@ import useRouteNames from "@/modules/route/hook/useRouteNames";
 import { RouteNameData } from "@/modules/route/types/RouteNameData";
 import useTrips from "@/modules/trip/hook/useTrips";
 import LoadingIndicator from "@/lib/Loading";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, CircularProgress, Tab, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  CircularProgress,
+  Tab,
+  Typography,
+} from "@mui/material";
 import { TripData } from "@/modules/trip/types/TripData";
-import { AddCircleOutline, History, Delete, FileDownloadDone, Print, ExpandMore, EventNote } from "@mui/icons-material";
-import '../../modules/trip/style/TripDetail.css'
+import {
+  AddCircleOutline,
+  History,
+  Delete,
+  FileDownloadDone,
+  Print,
+  ExpandMore,
+  EventNote,
+} from "@mui/icons-material";
+import "../../modules/trip/style/TripDetail.css";
 import { formatToDate_NgayTN } from "@/lib/dateUtils";
 import ModalTrip from "@/modules/trip/components/ModalTrip";
 import { NewTripData } from "@/modules/trip/types/NewTripData";
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 import TicketMap from "@/modules/booking_v1/components/TicketMap";
 import PassengerList from "@/modules/booking_v1/components/PassengerList";
 import PickupDropoff from "@/modules/booking_v1/components/PickupDropoff";
@@ -58,7 +75,6 @@ export default function TicketPage() {
     createTrip,
   } = useTrips(companyId, selectedRoute?.id || null, selectedDate);
   const handleCancelTrip = async () => {
-
     if (selectedTrip) {
       await deleteTrip(selectedTrip.id);
     }
@@ -92,17 +108,15 @@ export default function TicketPage() {
   };
 
   // Tab
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState("1");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
-
-
   return (
     <>
-      <div className="flex fixed bg-white w-screen top-[62px] px-2   py-2 z-50">
+      <div className="fixed top-[62px] z-50 flex w-screen bg-white px-2 py-2">
         <div>
           <button
             className="rounded bg-blue-500 px-5 py-[4.7px] text-white hover:bg-blue-700"
@@ -147,8 +161,6 @@ export default function TicketPage() {
           onTripSelect={handleTripSelect}
           onAddTrip={handleOpenModal}
         />
-
-
       </div>
       <section className="mt-3 px-2">
         {selectedTrip ? (
@@ -160,13 +172,29 @@ export default function TicketPage() {
               <Button size="small" variant="outlined" startIcon={<History />}>
                 Lịch sử
               </Button>
-              <Button size="small" variant="outlined" startIcon={<FileDownloadDone />}>
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<FileDownloadDone />}
+              >
                 Xuất bến
               </Button>
-              <Button size="small" variant="outlined" color="error" startIcon={<Delete />} onClick={handleCancelTrip} disabled={!selectedTrip}>
+              <Button
+                size="small"
+                variant="outlined"
+                color="error"
+                startIcon={<Delete />}
+                onClick={handleCancelTrip}
+                disabled={!selectedTrip}
+              >
                 Hủy chuyến
               </Button>
-              <Button size="small" variant="outlined" color="secondary" startIcon={<AddCircleOutline />}>
+              <Button
+                size="small"
+                variant="outlined"
+                color="secondary"
+                startIcon={<AddCircleOutline />}
+              >
                 Thêm hàng
               </Button>
             </div>
@@ -177,45 +205,77 @@ export default function TicketPage() {
                 id="panel1-header"
               >
                 <Typography>
-                  <span className="font-semibold">{selectedTrip.timeDeparture.substring(0, 5)} • {formatToDate_NgayTN(selectedDate ? selectedDate.toDateString() : '')} • {selectedRoute?.routeName}</span>
+                  <span className="font-semibold">
+                    {selectedTrip.timeDeparture.substring(0, 5)} •{" "}
+                    {formatToDate_NgayTN(
+                      selectedDate ? selectedDate.toDateString() : "",
+                    )}{" "}
+                    • {selectedRoute?.routeName}
+                  </span>
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
                   <div className="grid grid-cols-4 gap-4">
                     <div>
-                      <span className="font-semibold text-[14px]">Biển số: </span>
-                      <span className="font-medium text-[#0072bc] text-[15px]">{selectedTrip?.licensePlate || 'N/A'}</span>
+                      <span className="text-[14px] font-semibold">
+                        Biển số:{" "}
+                      </span>
+                      <span className="text-[15px] font-medium text-[#0072bc]">
+                        {selectedTrip?.licensePlate || "N/A"}
+                      </span>
                     </div>
                     <div>
-                      <span className="font-semibold text-[14px]">Tài xế: </span>
-                      <span className="font-medium text-[#0072bc] text-[15px]">{selectedTrip?.driversDetail.join(", ") || 'N/A'} </span>
+                      <span className="text-[14px] font-semibold">
+                        Tài xế:{" "}
+                      </span>
+                      <span className="text-[15px] font-medium text-[#0072bc]">
+                        {selectedTrip?.driversDetail.join(", ") || "N/A"}{" "}
+                      </span>
                     </div>
                     <div>
-                      <span className="font-semibold text-[14px]">Số điện thoại xe: </span>
-                      <span className="font-medium text-[#0072bc] text-[15px]">{selectedTrip?.phoneVehicle || 'N/A'}</span>
+                      <span className="text-[14px] font-semibold">
+                        Số điện thoại xe:{" "}
+                      </span>
+                      <span className="text-[15px] font-medium text-[#0072bc]">
+                        {selectedTrip?.phoneVehicle || "N/A"}
+                      </span>
                     </div>
                     <div>
-                      <span className="font-semibold text-[14px]">Tổng vé: </span>
-                      <span>{selectedTrip?.cargo || 'N/A'}</span>
+                      <span className="text-[14px] font-semibold">
+                        Tổng vé:{" "}
+                      </span>
+                      <span>{selectedTrip?.cargo || "N/A"}</span>
                     </div>
                   </div>
-                  <div className="grid grid-cols-4 gap-4 mt-2">
+                  <div className="mt-2 grid grid-cols-4 gap-4">
                     <div>
-                      <span className="font-semibold text-[14px]">Loại xe: </span>
-                      <span className="font-medium text-[#0072bc] text-[15px]">{selectedTrip.seatingChartName}</span>
+                      <span className="text-[14px] font-semibold">
+                        Loại xe:{" "}
+                      </span>
+                      <span className="text-[15px] font-medium text-[#0072bc]">
+                        {selectedTrip.seatingChartName}
+                      </span>
                     </div>
                     <div>
-                      <span className="font-semibold text-[14px]">Phụ xe: </span>
-                      <span className="font-medium text-[#0072bc] text-[15px]">{selectedTrip.assistantDetail.join(", ") || 'N/A'}</span>
+                      <span className="text-[14px] font-semibold">
+                        Phụ xe:{" "}
+                      </span>
+                      <span className="text-[15px] font-medium text-[#0072bc]">
+                        {selectedTrip.assistantDetail.join(", ") || "N/A"}
+                      </span>
                     </div>
                     <div>
-                      <span className="font-semibold text-[14px]">Tiền vé: </span>
-                      <span>{selectedTrip?.totalTickets || 'N/A'}</span>
+                      <span className="text-[14px] font-semibold">
+                        Tiền vé:{" "}
+                      </span>
+                      <span>{selectedTrip?.totalTickets || "N/A"}</span>
                     </div>
                     <div>
-                      <span className="font-semibold text-[14px]">Tiền hàng: </span>
-                      <span>{selectedTrip?.cargo || 'N/A'}</span>
+                      <span className="text-[14px] font-semibold">
+                        Tiền hàng:{" "}
+                      </span>
+                      <span>{selectedTrip?.cargo || "N/A"}</span>
                     </div>
                   </div>
                 </Typography>
@@ -223,14 +283,18 @@ export default function TicketPage() {
             </Accordion>
             <div className="mt-2">
               <EventNote color="primary" />
-              <span className="font-semibold text-[#0072bc] text-[15px] ml-2">{selectedTrip.note || ''}</span>
+              <span className="ml-2 text-[15px] font-semibold text-[#0072bc]">
+                {selectedTrip.note || ""}
+              </span>
             </div>
 
-
-            <Box sx={{ width: '100%', typography: 'body1' }}>
+            <Box sx={{ width: "100%", typography: "body1" }}>
               <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                  <TabList onChange={handleChange} aria-label="lab API tabs example">
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <TabList
+                    onChange={handleChange}
+                    aria-label="lab API tabs example"
+                  >
                     <Tab label="Sơ đồ ghế" value="1" />
                     <Tab label="Hành khách" value="2" />
                     <Tab label="Đón/ Trả" value="3" />
