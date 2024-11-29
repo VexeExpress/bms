@@ -2,12 +2,25 @@ import { useState } from "react";
 import { login } from "../api/authAPI";
 import Toast from "@/lib/Toast";
 import { AxiosError } from "axios";
+import { jwtDecode } from 'jwt-decode';
+import { useRouter } from "next/navigation";
 import {
   setStorage_CompanyId,
   setStorage_CompanyName,
   setStorage_EmployeeId,
   setStorage_FullName,
+  setStorage_Role,
+  setStorage_Token,
 } from "@/lib/cookie";
+const decodeToken = (token: string) => {
+  try {
+    const decoded: any = jwtDecode(token);
+    return decoded; 
+  } catch (error) {
+    console.error("Token không hợp lệ:", error);
+    return null;
+  }
+};
 async function fetchIPAddress() {
   const ipResponse = await fetch("https://api.ipify.org?format=json");
   const ipData = await ipResponse.json();
@@ -38,7 +51,7 @@ const useLogin = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
@@ -60,12 +73,20 @@ const useLogin = () => {
         browserName,
         operatingSystem,
       );
-      if (response.status === 200) {
+      const responseData = response.data;
+      if (response.status === 200 && responseData.token) {
         const responseData = await response.data;
-        setStorage_EmployeeId(responseData.id);
-        setStorage_FullName(responseData.fullName);
-        setStorage_CompanyId(responseData.companyId);
-        setStorage_CompanyName(responseData.companyName);
+        const decodedToken = decodeToken(responseData.token);
+        setStorage_Token(responseData.token);
+        if (decodedToken) {
+          const { userId, companyId, role } = decodedToken;
+          setStorage_EmployeeId(userId);
+          setStorage_CompanyId(companyId);
+          setStorage_FullName(responseData.fullName);
+          setStorage_CompanyName(responseData.companyName);
+          setStorage_Role(role);
+          router.push('/room-work');
+        }
         Toast.success("Đăng nhập thành công!");
       } else {
         switch (response.status) {

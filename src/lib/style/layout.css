@@ -1,0 +1,15 @@
+.css-5toxz7-MuiDrawer-docked .item-navbar-custom [role="button"][tabindex="0"] {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.css-5toxz7-MuiDrawer-docked .item-navbar-custom [data-testid="ExpandMoreIcon"] {
+    display: none;
+}
+.css-b7dj7n-MuiList-root{
+    padding: 0px !important;
+}
+.css-4bx69l-MuiButtonBase-root-MuiListItemButton-root{
+    margin-top: 10px !important;
+}

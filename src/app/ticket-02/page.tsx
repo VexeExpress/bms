@@ -90,6 +90,7 @@ export default function TicketPage() {
   const handleTodayClick = () => {
     if (calendarRef.current) {
       calendarRef.current.setToday();
+      setSelectedTrip(null);
       // console.log("Đã chuyển về hôm nay");
     }
   };
@@ -245,7 +246,7 @@ export default function TicketPage() {
                       <span className="text-[14px] font-semibold">
                         Tổng vé:{" "}
                       </span>
-                      <span>{selectedTrip?.cargo || "N/A"}</span>
+                      {/* <span>{selectedTrip?.cargo || "N/A"}</span> */}
                     </div>
                   </div>
                   <div className="mt-2 grid grid-cols-4 gap-4">
@@ -269,13 +270,13 @@ export default function TicketPage() {
                       <span className="text-[14px] font-semibold">
                         Tiền vé:{" "}
                       </span>
-                      <span>{selectedTrip?.totalTickets || "N/A"}</span>
+                      {/* <span>{selectedTrip?.totalTickets || "N/A"}</span> */}
                     </div>
                     <div>
                       <span className="text-[14px] font-semibold">
                         Tiền hàng:{" "}
                       </span>
-                      <span>{selectedTrip?.cargo || "N/A"}</span>
+                      {/* <span>{selectedTrip?.cargo || "N/A"}</span> */}
                     </div>
                   </div>
                 </Typography>

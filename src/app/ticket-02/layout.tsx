@@ -43,7 +43,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import BookOnline from "@mui/icons-material/BookOnline";
-import { getStorage_FullName } from "@/lib/cookie";
+import { getStorage_FullName, getStorage_Token, removeCompanyId, removeCompanyName, removeEmployeeId, removeFullName, removeOfficeId, removeRole, removeToken } from "@/lib/cookie";
+import { useRouter } from 'next/navigation';
+import '../../lib/style/layout.css';
 const drawerWidth = 260;
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -125,6 +127,13 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+  useEffect(() => {
+    const token = getStorage_Token();
+    if (!token) {
+      router.push("/");
+    }
+  }, [router]);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -295,6 +304,17 @@ export default function MainLayout({
       setFullNameUser(name);
     }
   }, []);
+  
+  const handleLogout = () => {
+    removeToken();
+    removeEmployeeId();
+    removeCompanyId();
+    removeFullName();
+    removeCompanyName();
+    removeRole();
+    removeOfficeId();
+    router.push('/');
+  };
   return (
     <Box className="flex">
       <CssBaseline />
@@ -339,7 +359,7 @@ export default function MainLayout({
           </Paper>
           <Box className="flex flex-grow items-center justify-end font-rounded">
             <div className="pr-2.5">
-              <span>{fullNameUser || "Đặng Tuấn Thành"}</span>
+              <span>{fullNameUser || ""}</span>
             </div>
 
             <Badge badgeContent={4} color="secondary" className="ml-5 mr-2.5">
@@ -392,7 +412,7 @@ export default function MainLayout({
               <MenuItem>
                 <span className="font-rounded">Đổi mật khẩu</span>
               </MenuItem>
-              <MenuItem>
+              <MenuItem onClick={handleLogout}>
                 <span className="font-rounded">Đăng xuất</span>
               </MenuItem>
             </Menu>
@@ -408,7 +428,7 @@ export default function MainLayout({
         <Divider />
 
         <List>
-          <Link href="/ticket-02/dashboard" passHref>
+          <Link className="item-navbar-custom" href="/ticket-02/dashboard" passHref>
             <ListItemButton className="flex items-center justify-between font-rounded">
               {open ? (
                 <div className="flex items-center">
@@ -419,10 +439,10 @@ export default function MainLayout({
                 </div>
               ) : (
                 <div className="group flex flex-col items-center hover:text-[#0072bc]">
-                  <ListItemIcon className="text-gray-600 group-hover:text-[#0072bc]">
+                  <ListItemIcon className="text-gray-600 justify-center group-hover:text-[#0072bc]">
                     <Dashboard />
                   </ListItemIcon>
-                  <span className="ml-[-28px] text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
+                  <span className="text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
                     Tổng quan
                   </span>
                 </div>
@@ -431,7 +451,7 @@ export default function MainLayout({
           </Link>
         </List>
         <List>
-          <Link href="/ticket-02" passHref>
+          <Link className="item-navbar-custom" href="/ticket-02" passHref>
             <ListItemButton className="flex items-center justify-between font-rounded">
               {open ? (
                 <div className="flex items-center">
@@ -442,10 +462,10 @@ export default function MainLayout({
                 </div>
               ) : (
                 <div className="group flex flex-col items-center hover:text-[#0072bc]">
-                  <ListItemIcon className="text-gray-600 group-hover:text-[#0072bc]">
+                  <ListItemIcon className="text-gray-600 justify-center group-hover:text-[#0072bc]">
                     <LocalActivity />
                   </ListItemIcon>
-                  <span className="ml-[-31px] text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
+                  <span className="text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
                     Đặt vé
                   </span>
                 </div>
@@ -454,7 +474,7 @@ export default function MainLayout({
           </Link>
         </List>
         <List>
-          <Link href="#" passHref>
+          <Link className="item-navbar-custom" href="#" passHref>
             <ListItemButton className="flex items-center justify-between font-rounded">
               {open ? (
                 <div className="flex items-center">
@@ -465,10 +485,10 @@ export default function MainLayout({
                 </div>
               ) : (
                 <div className="group flex flex-col items-center hover:text-[#0072bc]">
-                  <ListItemIcon className="text-gray-600 group-hover:text-[#0072bc]">
+                  <ListItemIcon className="text-gray-600 justify-center group-hover:text-[#0072bc]">
                     <BookOnline />
                   </ListItemIcon>
-                  <span className="ml-[-30px] text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
+                  <span className="text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
                     Vé online
                   </span>
                 </div>
@@ -478,7 +498,7 @@ export default function MainLayout({
         </List>
 
         {menuSections.map((section, sectionIndex) => (
-          <List key={sectionIndex}>
+          <List className="item-navbar-custom" key={sectionIndex}>
             <ListItemButton
               onClick={() => handleClickMenu(sectionIndex)}
               className="flex items-center justify-between font-rounded"
@@ -490,10 +510,10 @@ export default function MainLayout({
                 </div>
               ) : (
                 <div className="group flex flex-col items-center hover:text-[#0072bc]">
-                  <ListItemIcon className="text-gray-600 group-hover:text-[#0072bc]">
+                  <ListItemIcon  className="text-gray-600 justify-center group-hover:text-[#0072bc]">
                     {section.icon}
                   </ListItemIcon>
-                  <span className="ml-[-29px] text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
+                  <span className="text-center text-[10px] text-gray-600 group-hover:text-[#0072bc]">
                     {section.label}
                   </span>
                 </div>

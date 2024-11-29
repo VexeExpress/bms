@@ -1,0 +1,35 @@
+.container {
+  max-width: 270px !important;
+}
+.input {
+  width: 100%;
+  padding: 0px !important;
+}
+.input input {
+  padding: 5px !important;
+  font-family: Rounded, Helvetica, Arial, sans-serif !important;
+}
+.input textarea {
+  padding: 0 !important;
+  font-family: Rounded, Helvetica, Arial, sans-serif !important;
+}
+.input :global(.css-171086r-MuiInputBase-root-MuiOutlinedInput-root) {
+  padding: 5px !important;
+}
+
+.container :global(.css-1kdqo05-MuiButtonBase-root-MuiButton-root) {
+  text-transform: none !important;
+  font-family: Rounded, Helvetica, Arial, sans-serif !important;
+}
+.active {
+  border: 2px solid #0072bc;
+}
+.container :global(.css-1dybbl5-MuiChip-label) {
+  font-family: Rounded, Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
+  color: black;
+  font-weight: 600;
+}
+.container :global(.css-16yb58i-MuiButtonBase-root-MuiChip-root) {
+  background-color: #87b9da;
+}
