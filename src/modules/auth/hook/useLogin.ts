@@ -13,10 +13,9 @@ import {
   setStorage_Token,
 } from "@/lib/cookie";
 interface DecodedToken {
-  userId: string
-  companyId: string
-  role: string
-
+  userId: string;
+  companyId: string;
+  role: string;
 }
 const decodeToken = (token: string) => {
   try {
