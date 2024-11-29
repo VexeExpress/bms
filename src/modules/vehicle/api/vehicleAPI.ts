@@ -46,3 +46,13 @@ export const createVehicleByCompanyId = async (
     throw error;
   }
 };
+export const getListLicensePlateByCompanyId = async (companyId: number) => {
+  try {
+    const response = await apiClient.get(
+      `/vehicle/list-license-plate/${companyId}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

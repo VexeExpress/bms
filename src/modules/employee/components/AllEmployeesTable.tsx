@@ -15,7 +15,7 @@ const columns: GridColDef[] = [
     headerName: "Trạng thái",
     flex: 1,
     valueGetter: (value, row) =>
-      row.status === 1 ? "Hoạt động" : "Không hoạt động",
+      row.status === true ? "Hoạt động" : "Không hoạt động",
   },
   {
     field: "role",
@@ -34,7 +34,7 @@ const columns: GridColDef[] = [
   },
 ];
 
-const paginationModel = { page: 0, pageSize: 1 };
+const paginationModel = { page: 0, pageSize: 10 };
 
 export const AllEmployeesTable: React.FC<AllEmployeesTableProps> = ({
   employees,

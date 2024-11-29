@@ -1,0 +1,37 @@
+.css-s5n5kl-MuiButtonBase-root-MuiButton-root, .css-rec17m-MuiButtonBase-root-MuiButton-root, .css-8o0s0w-MuiButtonBase-root-MuiButton-root {
+    font-family: Rounded, Helvetica, Arial, sans-serif !important;
+    text-transform: none !important;
+    margin-right: 10px !important;
+}
+.css-1808mag-MuiPaper-root-MuiAccordion-root{
+    border-radius: 8px !important;
+    margin-top: 7px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px !important;
+    background-color: rgb(247, 247, 247);
+}
+.css-1808mag-MuiPaper-root-MuiAccordion-root::before{
+    display: none !important;
+}
+.css-rizt0-MuiTypography-root{
+    font-family: Rounded, Helvetica, Arial, sans-serif !important;
+}
+.css-1usuzwp-MuiButtonBase-root-MuiTab-root.Mui-selected {
+    color: #0072bc;
+    text-transform: none !important;
+    font-family: Rounded, Helvetica, Arial, sans-serif !important;
+}
+.css-1usuzwp-MuiButtonBase-root-MuiTab-root {
+    color: #1f1f1f;
+    text-transform: none !important;
+    font-family: Rounded, Helvetica, Arial, sans-serif !important;
+}
+.css-13xfq8m-MuiTabPanel-root{
+    padding: 0px !important;
+}
+.css-w8dmq8{
+    font-family: Rounded, Helvetica, Arial, sans-serif !important;
+}
+.css-1go4nxh{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}

@@ -54,3 +54,13 @@ export const deleteSeatingChartAPI = async (seatChartId: number) => {
     throw error;
   }
 };
+export const getListSeatingChartNameByCompanyId = async (companyId: number) => {
+  try {
+    const response = await apiClient.get(
+      `/seating-chart/list-seating-chart-name/${companyId}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

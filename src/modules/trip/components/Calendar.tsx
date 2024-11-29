@@ -10,7 +10,7 @@ interface CalendarProps {
   onDateChange: (date: Date | null) => void;
 }
 const Calendar = forwardRef(({ onDateChange }: CalendarProps, ref) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useImperativeHandle(ref, () => ({
     setToday: () => {
@@ -31,10 +31,10 @@ const Calendar = forwardRef(({ onDateChange }: CalendarProps, ref) => {
       onChange={handleDateChange}
       locale="vi"
       dateFormat="dd/MM/yyyy"
-      className="custom-datepicker text-black"
+      className="custom-datepicker font-rounded text-black"
       customInput={
         <button className="rounded-md border border-gray-300 p-1">
-          {selectedDate?.toLocaleDateString("vi-VN")}
+          {selectedDate?.toLocaleDateString("vi-VN") ?? "Chọn ngày"}
         </button>
       }
     />

@@ -32,6 +32,12 @@ export default function CreateEmployeePage() {
     setStatus,
     loading,
     handleSubmit,
+    accessBms,
+    setBms,
+    accessCms,
+    setCms,
+    accessTms,
+    setTms,
   } = useCreateEmployee();
 
   const [open, setOpen] = useState(false);
@@ -52,6 +58,9 @@ export default function CreateEmployeePage() {
     setUsername("");
     setPassword("");
     setStatus("");
+    setBms(false);
+    setCms(false);
+    setTms(false);
   };
   const handleBack = () => {
     router.back();
@@ -68,7 +77,7 @@ export default function CreateEmployeePage() {
       </div>
       <div className="mt-10 flex">
         <div className="mr-10 w-1/2 space-y-6">
-          <span className="font-semibold">Thông tin cá nhân</span>
+          <span className="text-lg font-semibold">Thông tin cá nhân</span>
           <div>
             <label htmlFor="name" className="mb-2 block font-medium text-black">
               Họ và tên
@@ -113,9 +122,9 @@ export default function CreateEmployeePage() {
               className="w-full"
               onChange={(e) => setRole(e.target.value)}
             >
-              <MenuItem value={1}>Nhân viên</MenuItem>
+              <MenuItem value={3}>Nhân viên</MenuItem>
               <MenuItem value={2}>Tài xế </MenuItem>
-              <MenuItem value={3}>Phụ xe</MenuItem>
+              <MenuItem value={1}>Phụ xe</MenuItem>
             </Select>
           </div>
           <div>
@@ -225,7 +234,9 @@ export default function CreateEmployeePage() {
           </div>
         </div>
         <div className="w-1/2 space-y-6">
-          <span className="font-semibold">Tài khoản và quyền truy cập</span>
+          <span className="text-lg font-semibold">
+            Tài khoản và quyền truy cập
+          </span>
           <div>
             <label
               htmlFor="username"
@@ -279,6 +290,49 @@ export default function CreateEmployeePage() {
               <MenuItem value={1}>Hoạt động</MenuItem>
               <MenuItem value={2}>Ngưng hoạt động</MenuItem>
             </Select>
+          </div>
+          <div className="mt-10">
+            <span className="text-lg font-semibold">
+              Sản phẩm có quyền truy cập
+            </span>
+            <div className="mt-4">
+              <div className="mb-2 flex items-center">
+                <input
+                  checked={accessBms}
+                  onChange={(e) => setBms(e.target.checked)}
+                  type="checkbox"
+                  id="bms"
+                  className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="bms" className="text-gray-700">
+                  Phần mềm quản lý nhà xe (BMS)
+                </label>
+              </div>
+              <div className="mb-2 flex items-center">
+                <input
+                  checked={accessCms}
+                  onChange={(e) => setCms(e.target.checked)}
+                  type="checkbox"
+                  id="cms"
+                  className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="cms" className="text-gray-700">
+                  Phần mềm quản lý hàng hóa (CMS)
+                </label>
+              </div>
+              <div className="mb-2 flex items-center">
+                <input
+                  checked={accessTms}
+                  onChange={(e) => setTms(e.target.checked)}
+                  type="checkbox"
+                  id="tms"
+                  className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="tms" className="text-gray-700">
+                  Phần mềm quản lý bán vé (TMS)
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>

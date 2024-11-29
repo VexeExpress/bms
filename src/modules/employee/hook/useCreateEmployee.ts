@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Toast from "@/lib/Toast";
 import { addEmployee } from "../api/employeeAPI";
+import { getStorage_CompanyId } from "@/lib/cookie";
 
 const useCreateEmployee = () => {
   const [fullName, setFullName] = useState("");
@@ -14,6 +15,9 @@ const useCreateEmployee = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
+  const [accessBms, setBms] = useState(false);
+  const [accessCms, setCms] = useState(false);
+  const [accessTms, setTms] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -21,6 +25,9 @@ const useCreateEmployee = () => {
     setLoading(true);
 
     const employeeData = {
+      accessTms,
+      accessBms,
+      accessCms,
       fullName,
       phone,
       role,
@@ -32,7 +39,7 @@ const useCreateEmployee = () => {
       username,
       password,
       status,
-      companyId: 2,
+      companyId: Number(getStorage_CompanyId()),
     };
 
     try {
@@ -47,6 +54,12 @@ const useCreateEmployee = () => {
   };
 
   return {
+    accessBms,
+    setBms,
+    accessCms,
+    setCms,
+    accessTms,
+    setTms,
     fullName,
     setFullName,
     phone,

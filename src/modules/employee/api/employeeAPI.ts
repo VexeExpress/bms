@@ -19,3 +19,23 @@ export const fetchEmployees = async (companyId: number) => {
     throw error;
   }
 };
+export const getDriverByCompanyId = async (companyId: number) => {
+  try {
+    const response = await apiClient.get(`/employee/list-driver/${companyId}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const getAssistantByCompanyId = async (
+  companyId: number,
+) => {
+  try {
+    const response = await apiClient.get(
+      `/employee/list-assistant/${companyId}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
