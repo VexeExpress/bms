@@ -16,6 +16,9 @@ export interface TicketData {
   ticketPrice: number;
   employeeName: string;
   officeName: string;
+  bookingStatus: boolean;
+  officeId: number;
+  employeeId: number;
 }
 export interface TicketList {
   filter: (arg0: (t: TicketData) => boolean) => TicketData[];

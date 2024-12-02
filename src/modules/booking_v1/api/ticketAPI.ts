@@ -1,4 +1,5 @@
 import apiClient from "@/config/apiClient";
+import { TicketData } from "../types/TicketData";
 export const getListTicketByTripId = async (tripId: number) => {
   try {
     const response = await apiClient.get(`/ticket/list-ticket/${tripId}`);
@@ -7,7 +8,10 @@ export const getListTicketByTripId = async (tripId: number) => {
     throw error;
   }
 };
-export const updateTicket = async (ticketIds: number[], data: object) => {
+export const updateTicketAPI = async (
+  ticketIds: number[],
+  data: TicketData,
+) => {
   try {
     const response = await apiClient.put(`/ticket/update-tickets`, {
       ticketIds,

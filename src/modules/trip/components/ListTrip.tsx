@@ -37,19 +37,21 @@ const ListTrip: React.FC<ListTripProps> = ({
               </span>
             </div>
             <div className={t.body}>
-              <span className="text-[12px] font-semibold">
+              <span className="text-[12px] font-semibold text-black">
                 T:{" "}
                 {Array.isArray(trip?.drivers) && trip.drivers.length > 0
                   ? trip.drivers.join(", ")
                   : "N/A"}
               </span>
-              <span className="text-[12px] font-semibold">
+              <span className="text-[12px] font-semibold text-black">
                 P:{" "}
                 {trip.assistant ? trip.assistant.join(", ") : "No assistants"}
               </span>
             </div>
             <div className={t.footer}>
-              <span className="text-[12px]">{trip.seatingChartName}</span>
+              <span className="text-[12px] text-black">
+                {trip.seatingChartName}
+              </span>
             </div>
           </div>
         ))}
