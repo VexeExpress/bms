@@ -66,6 +66,8 @@ bun run build
 **Styling:**
 
 - MUI Material
+- HeadlessUI
+
 - Tailwindcss
 - CSS Modules
 
