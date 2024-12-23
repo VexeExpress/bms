@@ -29,11 +29,49 @@ definePageMeta({
                 </div>
 
             </el-aside>
-            <el-container>
+            <el-container height="100vh">
                 <el-header>
                     <AppHeader />
                 </el-header>
-                <el-main>Main</el-main>
+                <el-main>
+                    <el-scrollbar height="80vh" class="bg-[#afb1b2] w-full">
+                        <div class="items-center justify-center h-full text-center">
+                            <h3 class="text-lg font-semibold">Sản phẩm cung cấp</h3>
+                            <h2 class="text-2xl font-bold mt-2">
+                                Hệ sinh thái quản trị toàn diện cho ngành vận tải
+                            </h2>
+                            <span class="text-sm text-gray-600 mt-2 ">
+                                Cung cấp nền tảng công nghệ số hoá ngành vận tải hành khách đường dài.
+                                Giúp các nhà vận tải hành khách chuyển đổi số, chủ động quản trị khoa học
+                            </span>
+                        </div>
+                        <div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="p-4 bg-white shadow rounded-lg text-center">
+                                    <h3 class="text-lg font-bold">Card 1</h3>
+                                    <p class="text-gray-600">Nội dung card 1</p>
+                                </div>
+                                <div class="p-4 bg-white shadow rounded-lg text-center">
+                                    <h3 class="text-lg font-bold">Card 2</h3>
+                                    <p class="text-gray-600">Nội dung card 2</p>
+                                </div>
+                                <div class="p-4 bg-white shadow rounded-lg text-center">
+                                    <h3 class="text-lg font-bold">Card 3</h3>
+                                    <p class="text-gray-600">Nội dung card 3</p>
+                                </div>
+                                <div class="p-4 bg-white shadow rounded-lg text-center">
+                                    <h3 class="text-lg font-bold">Card 4</h3>
+                                    <p class="text-gray-600">Nội dung card 4</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </el-scrollbar>
+
+                </el-main>
+
                 <el-footer>Footer</el-footer>
             </el-container>
         </el-container>
@@ -41,7 +79,8 @@ definePageMeta({
 </template>
 
 <style scoped>
-.el-header{
+.el-header,
+.el-main {
     padding: 0 !important;
 }
 </style>
