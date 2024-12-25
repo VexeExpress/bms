@@ -1,10 +1,15 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'default',
+  middleware: ['auth'],
+});
 
 </script>
+
 <template>
-    <div>
-        room-work
-    </div>
+aa
 </template>
+
 <style scoped>
+
 </style>

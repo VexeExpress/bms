@@ -3,14 +3,12 @@ import { reactive, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
 import type { FormInstance, FormRules } from 'element-plus'
+import type {LoginResponseType, LoginType} from "~/components/Auth/AuthType";
+
+
 const config = useRuntimeConfig();
 
 const router = useRouter();
-
-interface LoginType {
-    username: string;
-    password: string;
-}
 
 const ruleFormRef = ref<FormInstance>()
 
@@ -30,42 +28,47 @@ const rules = reactive<FormRules<LoginType>>({
     ],
 })
 
+
+const cookies = useCookie('access_token');
 const onSubmit = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
-    formEl.validate(async (valid) => {
-        if (valid) {
-            try {
-                console.log('form', form);
-                const res = await $fetch(`${config.public.apiUrl}/auth/token`, {
-                    method: 'POST',
-                    body: form as LoginType,
-                })
-                console.log('res', res);
-
-                // if (error) {
-                //     ElMessage({
-                //         message: 'Lỗi ',
-                //         type: 'error',
-                //     });
-                // }
-
-                // const accessToken = data.value;
-
-            } catch (err) {
-                ElMessage({
-                    message: 'Lỗi hệ thống, vui lòng thử lại sau!',
-                    type: 'error',
-                });
-            }
-        } else {
+    await formEl.validate(async (valid) => {
+      if (valid) {
+        try {
+          console.log('form', form);
+          const res = await $fetch(`${config.public.apiUrl}/auth/token`, {
+            method: 'POST',
+            body: form as LoginType,
+          }) as LoginResponseType
+          if (res.code === 1000) {
             ElMessage({
-                message: 'Lỗi xác thực thông tin đăng nhập!',
-                type: 'error',
+              message: res.message,
+              type: 'success',
             });
+            cookies.value = res.result.token
+            console.log('Logged in successfully:', res);
+            await router.push('/room-work');
+          } else {
+            console.log('Error logged in successfully:', res);
+            ElMessage({
+              message: 'Đăng nhập thất bại',
+              type: 'error',
+            });
+          }
+        } catch (err: any) {
+          const errorMessage = err?.data?.message || err?.response?.data?.message || 'Lỗi hệ thống, vui lòng thử lại sau';
+          ElMessage({
+            message: errorMessage,
+            type: 'error',
+          });
         }
+      } else {
+        ElMessage({
+          message: 'Lỗi xác thực thông tin đăng nhập!',
+          type: 'error',
+        });
+      }
     })
-
-
 };
 </script>
 <template>

@@ -1,23 +1,34 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'default',
+  middleware: ['auth'],
+});
 </script>
 <template>
-    <div>
-        <header>
-            <h1>My App</h1>
-        </header>
-        <nav>
-            <ul>
-                <li>
-                    <NuxtLink to="/">Home</NuxtLink>
-                </li>
-                <li>
-                    <NuxtLink to="/about">About</NuxtLink>
-                </li>
-            </ul>
-        </nav>
-        <main>
-            <slot></slot>
-        </main>
-    </div>
+  <div class="common-layout">
+    <el-container>
+      <el-aside width="auto" class="custom-menu">
+        <Menu/>
+      </el-aside>
+      <el-container>
+        <el-header>
+          <Header/>
+        </el-header>
+        <el-main>
+          <slot/>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
 </template>
-<style scoped></style>
+<style scoped>
+.el-header{
+  padding: 0 !important;
+}
+.custom-menu {
+  border-right: 1px solid #dcdfe6;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+</style>
