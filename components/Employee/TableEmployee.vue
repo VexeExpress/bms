@@ -42,7 +42,7 @@ const props = defineProps<{
 }>();
 
 
-const emit = defineEmits(['edit']);
+const emit = defineEmits(['edit', 'delete', 'lock', 'changePassword']);
 const search = ref('');
 
 const filterTableData = computed(() =>
@@ -55,13 +55,16 @@ const filterTableData = computed(() =>
 );
 
 const handleEdit = (row: EmployeeType) => {
-  console.log('Editing row:', row);
   emit('edit', row);
 };
-
-const handleDelete = (index: number, row: EmployeeType) => {
-  console.log('Deleting row:', index, row);
-  // Logic xóa
+const handleDelete = (row: EmployeeType) => {
+  emit('delete', row);
+}
+const handleLockAccount = (row: EmployeeType) => {
+  emit('lock', row);
+}
+const handleChangePassword = (row: EmployeeType) => {
+  emit('changePassword', row);
 }
 
 
@@ -131,8 +134,8 @@ const handleDelete = (index: number, row: EmployeeType) => {
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item @click="handleEdit(row)">Chỉnh sửa</el-dropdown-item>
-              <el-dropdown-item>Khoá tài khoản</el-dropdown-item>
-              <el-dropdown-item>Đặt lại mật khẩu</el-dropdown-item>
+              <el-dropdown-item @click="handleLockAccount(row)">Khoá tài khoản</el-dropdown-item>
+              <el-dropdown-item @click="handleChangePassword(row)">Đặt lại mật khẩu</el-dropdown-item>
               <el-dropdown-item divided @click="handleDelete(row)">Xoá tài khoản</el-dropdown-item>
             </el-dropdown-menu>
           </template>

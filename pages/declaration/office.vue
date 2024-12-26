@@ -1,7 +1,10 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'default',
+  middleware: ['auth'],
+});
 import {Plus} from "@element-plus/icons-vue";
 import TableOffice from "~/components/Office/TableOffice.vue";
-
 </script>
 
 <template>
