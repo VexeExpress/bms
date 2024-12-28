@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, nextTick } from 'vue'
+import { ref } from 'vue'
 import {
   Ticket,
   Menu as IconMenu,
@@ -35,23 +35,28 @@ const handleClose = (key: string, keyPath: string[]) => {
 
   <el-menu
       ref="menu"
-      default-active="2"
+
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
       @open="handleOpen"
       @close="handleClose"
   >
-
-    <el-menu-item index="1">
-      <el-icon><icon-menu /></el-icon>
-      <template #title>Tổng quan</template>
-    </el-menu-item>
-
+    <NuxtLink to="/dashboard">
+      <el-menu-item index="1">
+        <el-icon><icon-menu /></el-icon>
+        <template #title>
+            Tổng quan
+        </template>
+      </el-menu-item>
+    </NuxtLink>
+    <NuxtLink to="/ticket">
     <el-menu-item index="2">
       <el-icon><Ticket /></el-icon>
-      <template #title>Đặt vé</template>
+      <template #title>
+          Đặt vé
+      </template>
     </el-menu-item>
-
+    </NuxtLink>
     <el-sub-menu index="3">
       <template #title>
         <el-icon><UserFilled /></el-icon>
@@ -59,11 +64,32 @@ const handleClose = (key: string, keyPath: string[]) => {
       </template>
       <el-menu-item-group>
         <template #title><span>Hành khách</span></template>
-        <el-menu-item index="3-1">Tra cứu thông tin vé</el-menu-item>
-        <el-menu-item index="3-2">Xuất vé điện tử</el-menu-item>
-        <el-menu-item index="3-3">Quản lý hành khách</el-menu-item>
-        <el-menu-item index="3-4">Đánh giá</el-menu-item>
+
+        <NuxtLink to="/customers/report-ticket-detail">
+          <el-menu-item index="3-1">
+            Tra cứu thông tin vé
+          </el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/customers/electronic-ticket">
+          <el-menu-item index="3-2">
+            Xuất vé điện tử
+          </el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/customers">
+          <el-menu-item index="3-3">
+            Quản lý hành khách
+          </el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/customers/rating">
+          <el-menu-item index="3-4">
+            Đánh giá
+          </el-menu-item>
+        </NuxtLink>
       </el-menu-item-group>
+
 
     </el-sub-menu>
 
@@ -74,10 +100,27 @@ const handleClose = (key: string, keyPath: string[]) => {
       </template>
       <el-menu-item-group>
         <template #title><span>Hàng hoá</span></template>
-        <el-menu-item index="4-1">Phiếu hàng hoá</el-menu-item>
-        <el-menu-item index="4-2">Báo cáo hàng hoá</el-menu-item>
-        <el-menu-item index="4-3">Báo cáo hàng hoá theo NV</el-menu-item>
+
+        <NuxtLink to="/goods">
+          <el-menu-item index="4-1">
+            Phiếu hàng hoá
+          </el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/goods/report-goods">
+          <el-menu-item index="4-2">
+            Báo cáo hàng hoá
+          </el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/goods/goods-by-employee">
+          <el-menu-item index="4-3">
+            Báo cáo hàng hoá theo NV
+          </el-menu-item>
+        </NuxtLink>
       </el-menu-item-group>
+
+
     </el-sub-menu>
 
     <el-sub-menu index="5">
@@ -87,16 +130,45 @@ const handleClose = (key: string, keyPath: string[]) => {
       </template>
       <el-menu-item-group>
         <template #title><span>Điều hành</span></template>
-        <el-menu-item index="5-1">Phân tài trung chuyển</el-menu-item>
-        <el-menu-item index="5-2">Sắp xếp tuyến</el-menu-item>
-        <el-menu-item index="5-3">Báo cáo tài xế</el-menu-item>
-        <el-menu-item index="5-4">Báo cáo trung chuyển</el-menu-item>
-        <el-menu-item index="5-5">Thu chi</el-menu-item>
-        <el-menu-item index="5-6">Thu chi chuyến</el-menu-item>
-        <el-menu-item index="5-7">Danh sách chuyến</el-menu-item>
-        <el-menu-item index="5-8">Nhiên liệu</el-menu-item>
-        <el-menu-item index="6-1">Lệnh vận chuyển điện tử</el-menu-item>
+
+        <NuxtLink to="/executive/transit">
+          <el-menu-item index="5-1">Phân tài trung chuyển</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/executive/order-route">
+          <el-menu-item index="5-2">Sắp xếp tuyến</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/executive/driver-report">
+          <el-menu-item index="5-3">Báo cáo tài xế</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/executive/transshipment-report">
+          <el-menu-item index="5-4">Báo cáo trung chuyển</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/executive/bill">
+          <el-menu-item index="5-5">Thu chi</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/executive/bill-in-trip">
+          <el-menu-item index="5-6">Thu chi chuyến</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/executive/manage-list-trip">
+          <el-menu-item index="5-7">Danh sách chuyến</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/executive/manage-ingredient">
+          <el-menu-item index="5-8">Nhiên liệu</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/executive/electronic-shipping-orders">
+          <el-menu-item index="5-9">Lệnh vận chuyển điện tử</el-menu-item>
+        </NuxtLink>
+
       </el-menu-item-group>
+
 
     </el-sub-menu>
 
@@ -107,14 +179,37 @@ const handleClose = (key: string, keyPath: string[]) => {
       </template>
       <el-menu-item-group>
         <template #title><span>Quản lý</span></template>
-        <el-menu-item index="6-1">Phân quyền bán vé</el-menu-item>
-        <el-menu-item index="6-2">Phiếu thu</el-menu-item>
-        <el-menu-item index="6-3">Phiếu chi</el-menu-item>
-        <el-menu-item index="6-4">Giá niêm yết</el-menu-item>
-        <el-menu-item index="6-5">Chính sách huỷ vé</el-menu-item>
-        <el-menu-item index="6-6">Mã khuyến mãi</el-menu-item>
-        <el-menu-item index="6-7">Đối tượng ưu đãi</el-menu-item>
+
+        <NuxtLink to="/administer/manage-permission-sell-ticket">
+          <el-menu-item index="6-1">Phân quyền bán vé</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/administer/payment">
+          <el-menu-item index="6-2">Phiếu thu</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/administer/payment-slip">
+          <el-menu-item index="6-3">Phiếu chi</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/administer/price-policy">
+          <el-menu-item index="6-4">Giá niêm yết</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/administer/cancel-ticket-policy">
+          <el-menu-item index="6-5">Chính sách huỷ vé</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/administer/promotion">
+          <el-menu-item index="6-6">Mã khuyến mãi</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/administer/customers-register-incentives">
+          <el-menu-item index="6-7">Khách hàng đăng ký ưu đãi</el-menu-item>
+        </NuxtLink>
+
       </el-menu-item-group>
+
 
     </el-sub-menu>
 
@@ -125,62 +220,53 @@ const handleClose = (key: string, keyPath: string[]) => {
       </template>
       <el-menu-item-group>
         <template #title><span>Khai báo</span></template>
-        <el-menu-item index="7-1">
-          <NuxtLink to="/declaration/office">
-            Văn phòng
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-2">
-          <NuxtLink to="/declaration/employee">
-            Nhân viên
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-3">
-          <NuxtLink to="/declaration/point">
-            Điểm dừng
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-4">
-          <NuxtLink to="/declaration/route">
-            Tuyến
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-5">
-          <NuxtLink to="/declaration/seat">
-            Sơ đồ ghế
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-6">
-          <NuxtLink to="/declaration/vehicle">
-            Phương tiện
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-7">
-          <NuxtLink to="/declaration/plan-for-trip">
-            Lịch chạy
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-8">
-          <NuxtLink to="/declaration/agency">
-            Đại lý
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-9">
-          <NuxtLink to="/declaration/item">
-            Khoản mục
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-10">
-          <NuxtLink to="/declaration/surcharge-category">
-            Danh mục phụ thu
-          </NuxtLink>
-        </el-menu-item>
-        <el-menu-item index="7-11">
-          <NuxtLink to="/declaration/telecom-number">
-            Số máy tổng đài
-          </NuxtLink>
-        </el-menu-item>
+
+        <NuxtLink to="/declaration/office">
+          <el-menu-item index="7-1">Văn phòng</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/employee">
+          <el-menu-item index="7-2">Nhân viên</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/point">
+          <el-menu-item index="7-3">Điểm dừng</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/route">
+          <el-menu-item index="7-4">Tuyến</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/seat">
+          <el-menu-item index="7-5">Sơ đồ ghế</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/vehicle">
+          <el-menu-item index="7-6">Phương tiện</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/plan-for-trip">
+          <el-menu-item index="7-7">Lịch chạy</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/agency">
+          <el-menu-item index="7-8">Đại lý</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/item">
+          <el-menu-item index="7-9">Khoản mục</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/surcharge-category">
+          <el-menu-item index="7-10">Danh mục phụ thu</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/declaration/telecom-number">
+          <el-menu-item index="7-11">Số máy tổng đài</el-menu-item>
+        </NuxtLink>
+
       </el-menu-item-group>
+
 
     </el-sub-menu>
 
@@ -191,14 +277,33 @@ const handleClose = (key: string, keyPath: string[]) => {
       </template>
       <el-menu-item-group>
         <template #title><span>Hệ thống</span></template>
-        <el-menu-item index="8-1">Cấu hình hệ thống</el-menu-item>
-        <el-menu-item index="8-2">Lịch sử đăng nhập</el-menu-item>
-        <el-menu-item index="8-3">Tuỳ chỉnh in vé</el-menu-item>
-        <el-menu-item index="8-4">Tuỳ chỉnh in hàng</el-menu-item>
-        <el-menu-item index="8-5">Cấu hình gửi tin nhắn</el-menu-item>
-        <el-menu-item index="8-6">Cấu hình gửi mail</el-menu-item>
-        <el-menu-item index="8-7">Lịch sử đăng nhập</el-menu-item>
+
+        <NuxtLink to="/system/system-setting">
+          <el-menu-item index="8-1">Cấu hình hệ thống</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/system/login-history">
+          <el-menu-item index="8-2">Lịch sử đăng nhập</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/system/config-ticket">
+          <el-menu-item index="8-3">Tuỳ chỉnh in vé</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/system/config-goods">
+          <el-menu-item index="8-4">Tuỳ chỉnh in hàng</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/system/config-sms">
+          <el-menu-item index="8-5">Cấu hình gửi tin nhắn</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/system/config-mail">
+          <el-menu-item index="8-6">Cấu hình gửi mail</el-menu-item>
+        </NuxtLink>
+
       </el-menu-item-group>
+
 
     </el-sub-menu>
 
@@ -209,9 +314,17 @@ const handleClose = (key: string, keyPath: string[]) => {
       </template>
       <el-menu-item-group>
         <template #title><span>CSKH</span></template>
-        <el-menu-item index="1-1">Báo cáo số dư tài khoản</el-menu-item>
-        <el-menu-item index="1-2">Đăng ký sử dụng VietQR</el-menu-item>
+
+        <NuxtLink to="/support/report-message">
+          <el-menu-item index="9-1">Báo cáo số dư tài khoản</el-menu-item>
+        </NuxtLink>
+
+        <NuxtLink to="/support/register-vietqr">
+          <el-menu-item index="9-2">Đăng ký sử dụng VietQR</el-menu-item>
+        </NuxtLink>
+
       </el-menu-item-group>
+
 
     </el-sub-menu>
 
