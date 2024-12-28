@@ -29,5 +29,4 @@ export interface UserData {
     companyName: string;
     employeeId: number;
     companyId: number;
-
 }

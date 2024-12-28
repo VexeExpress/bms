@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type {UserData} from "~/components/Auth/AuthType";
 import {useUserStore} from "~/store/userStore";
 
 definePageMeta({
@@ -7,7 +6,7 @@ definePageMeta({
 });
 const userStore = useUserStore();
 
-onMounted(() => {
+onBeforeMount(() => {
   userStore.loadUserData();
 });
 </script>

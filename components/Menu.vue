@@ -135,23 +135,51 @@ const handleClose = (key: string, keyPath: string[]) => {
             Nhân viên
           </NuxtLink>
         </el-menu-item>
-        <el-menu-item index="7-3">Điểm dừng</el-menu-item>
+        <el-menu-item index="7-3">
+          <NuxtLink to="/declaration/point">
+            Điểm dừng
+          </NuxtLink>
+        </el-menu-item>
         <el-menu-item index="7-4">
           <NuxtLink to="/declaration/route">
             Tuyến
           </NuxtLink>
         </el-menu-item>
-        <el-menu-item index="7-5">Sơ đồ ghế</el-menu-item>
+        <el-menu-item index="7-5">
+          <NuxtLink to="/declaration/seat">
+            Sơ đồ ghế
+          </NuxtLink>
+        </el-menu-item>
         <el-menu-item index="7-6">
           <NuxtLink to="/declaration/vehicle">
             Phương tiện
           </NuxtLink>
         </el-menu-item>
-        <el-menu-item index="7-7">Lịch chạy</el-menu-item>
-        <el-menu-item index="7-8">Đại lý</el-menu-item>
-        <el-menu-item index="7-9">Khoản mục</el-menu-item>
-        <el-menu-item index="7-10">Danh mục phụ thu</el-menu-item>
-        <el-menu-item index="7-11">Số máy tổng đài</el-menu-item>
+        <el-menu-item index="7-7">
+          <NuxtLink to="/declaration/plan-for-trip">
+            Lịch chạy
+          </NuxtLink>
+        </el-menu-item>
+        <el-menu-item index="7-8">
+          <NuxtLink to="/declaration/agency">
+            Đại lý
+          </NuxtLink>
+        </el-menu-item>
+        <el-menu-item index="7-9">
+          <NuxtLink to="/declaration/item">
+            Khoản mục
+          </NuxtLink>
+        </el-menu-item>
+        <el-menu-item index="7-10">
+          <NuxtLink to="/declaration/surcharge-category">
+            Danh mục phụ thu
+          </NuxtLink>
+        </el-menu-item>
+        <el-menu-item index="7-11">
+          <NuxtLink to="/declaration/telecom-number">
+            Số máy tổng đài
+          </NuxtLink>
+        </el-menu-item>
       </el-menu-item-group>
 
     </el-sub-menu>
