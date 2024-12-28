@@ -5,4 +5,5 @@ export interface OfficeType{
     status: boolean;
     phone: string;
     address: string;
+    companyId: number;
 }

@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import type {UserData} from "~/components/Auth/AuthType";
+import {useUserStore} from "~/store/userStore";
+
 definePageMeta({
   layout: 'default',
-  middleware: ['auth'],
+});
+const userStore = useUserStore();
+
+onMounted(() => {
+  userStore.loadUserData();
 });
 </script>
 <template>

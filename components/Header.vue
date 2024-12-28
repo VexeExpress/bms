@@ -5,16 +5,18 @@ import {
   DataAnalysis
 } from '@element-plus/icons-vue'
 import {ElMessage} from "element-plus";
+import {useUserStore} from "~/store/userStore";
 
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 const input = ref('')
 const router = useRouter();
-const cookies = useCookie('access_token');
+
+const userStore = useUserStore();
 const logout = () => {
-  cookies.value = null;
   router.push('/');
+  userStore.clearUserData();
   ElMessage({
     message: 'Đăng xuất thành công!',
     type: 'success',

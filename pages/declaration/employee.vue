@@ -4,18 +4,21 @@ import TableEmployee from "~/components/Employee/TableEmployee.vue";
 import type {EmployeeType} from "~/components/Employee/EmployeeType";
 import ModalEmployee from "~/components/Employee/ModalEmployee.vue";
 import {ElMessage} from "element-plus";
+import {useUserStore} from "~/store/userStore";
+const userStore = useUserStore();
+const companyId = userStore.userData?.companyId;
 const employees = ref<EmployeeType[]>([]);
 const loading = ref(true);
 const config = useRuntimeConfig();
 const token = useCookie('access_token').value;
+
 onMounted(async () => {
-  const companyId = Number(localStorage.getItem('company_id'));
   if (!companyId) {
     console.error('Company ID is missing or invalid');
     return;
   }
   try {
-    const res = await $fetch<{ code: number, result: EmployeeType[] }>(`${config.public.apiUrl}/employee/list-employee/${companyId}`, {
+    const res = await $fetch<{ code: number, message: string, result: EmployeeType[] }>(`${config.public.apiUrl}/employee/list-employee/${companyId}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -24,6 +27,7 @@ onMounted(async () => {
     if (res.code === 1000) {
       employees.value = res.result;
       console.log('Fetched employees:', employees.value);
+      ElMessage.success(res.message);
     } else {
       console.error('API returned an error:', res.code);
     }
@@ -52,7 +56,6 @@ const closeModal = () => {
 const handleAddEmployee = async (employeeData: EmployeeType) => {
   try {
     console.log('Thêm mới nhân viên:', employeeData);
-
     const res = await $fetch<{
       code: number;
       message: string;
@@ -72,9 +75,10 @@ const handleAddEmployee = async (employeeData: EmployeeType) => {
     } else {
       ElMessage.error(res.message || 'Thêm nhân viên mới thất bại');
     }
-  } catch (err) {
+  } catch (err: any) {
     console.error('Error saving employee:', err);
-    ElMessage.error( 'Lỗi hệ thống, vui lòng thử lại sau');
+    const errorMessage = err?.data?.message || err?.response?.data?.message || 'Lỗi hệ thống, vui lòng thử lại sau';
+    ElMessage.error(errorMessage);
   }
 };
 const handleUpdateEmployee = async (employeeData: EmployeeType) => {
@@ -103,9 +107,10 @@ const handleUpdateEmployee = async (employeeData: EmployeeType) => {
     } else {
       ElMessage.error(res.message || 'Cập nhật nhân viên thất bại');
     }
-  } catch (err) {
+  } catch (err: any) {
     console.error('Error updating employee:', err);
-    ElMessage.error('Lỗi hệ thống, vui lòng thử lại sau');
+    const errorMessage = err?.data?.message || err?.response?.data?.message || 'Lỗi hệ thống, vui lòng thử lại sau';
+    ElMessage.error(errorMessage);
   }
 };
 const handleDeleteEmployee = async (employeeData: EmployeeType) => {
@@ -197,6 +202,6 @@ const handleChangePassword = async (employeeData: EmployeeType) => {
       <el-button type="primary" :icon="Plus" @click="openAddModal">Thêm nhân viên</el-button>
     </div>
     <TableEmployee :employees="employees" :loading="loading" @edit="openEditModal" @delete="handleDeleteEmployee" @lock="handleLockAccount" @changePassword="handleChangePassword"/>
-    <ModalEmployee v-if="showModal" :mode="modalMode" :employee="selectedEmployee" @close="closeModal" @saveEmployee="handleAddEmployee" @updateEmployee="handleUpdateEmployee"/>
+    <ModalEmployee v-if="showModal" :mode="modalMode" :companyId="companyId" :employee="selectedEmployee" @close="closeModal" @saveEmployee="handleAddEmployee" @updateEmployee="handleUpdateEmployee"/>
   </section>
 </template>

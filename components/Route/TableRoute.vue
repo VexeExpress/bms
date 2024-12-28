@@ -1,26 +1,27 @@
 <script setup lang="ts">
-import type {OfficeType} from "~/components/Office/OfficeType";
+import type {RouteType} from "~/components/Route/RouteType";
 import {computed, ref} from "vue";
 import {Operation} from "@element-plus/icons-vue";
+import {formatCurrency} from "../../utils/formatCurrency";
 
 const props = defineProps<{
-  offices: OfficeType[];
+  routes: RouteType[];
   loading: boolean;
 }>();
 const emit = defineEmits(['edit', 'delete']);
 const search = ref('');
 const filterTableData = computed(() =>
-    props.offices.filter(
+    props.routes.filter(
         (data) =>
             !search.value ||
-            data.officeName?.toLowerCase().includes(search.value.toLowerCase()) ||
-            data.phone?.toLowerCase().includes(search.value.toLowerCase())
+            data.routeName?.toLowerCase().includes(search.value.toLowerCase()) ||
+            data.routeNameShort?.toLowerCase().includes(search.value.toLowerCase())
     )
 );
-const handleEdit = (row: OfficeType) => {
+const handleEdit = (row: RouteType) => {
   emit('edit', row);
 };
-const handleDelete = (row: OfficeType) => {
+const handleDelete = (row: RouteType) => {
   emit('delete', row);
 }
 </script>
@@ -32,8 +33,13 @@ const handleDelete = (row: OfficeType) => {
         {{ $index + 1 }}
       </template>
     </el-table-column>
-    <el-table-column label="Tên văn phòng" prop="officeName" />
-    <el-table-column label="Mã văn phòng" prop="officeCode" />
+    <el-table-column label="Tên tuyến" prop="routeName" />
+    <el-table-column label="Tên tuyến rút gọn" prop="routeName" />
+    <el-table-column label="Giá vé cơ bản">
+      <template #default="{ row }">
+        {{ formatCurrency(row.displayPrice) }}
+      </template>
+    </el-table-column>
     <el-table-column label="Trạng thái" prop="status">
       <template #default="scope">
         <el-tag
@@ -44,11 +50,9 @@ const handleDelete = (row: OfficeType) => {
         </el-tag>
       </template>
     </el-table-column>
-    <el-table-column label="Số điện thoại" prop="phone" />
-    <el-table-column label="Địa chỉ" prop="address" />
     <el-table-column >
       <template #header>
-        <el-input v-model="search" size="small" placeholder="Tìm văn phòng" />
+        <el-input v-model="search" size="small" placeholder="Tìm tuyến" />
       </template>
       <template #default="{ row }">
         <el-dropdown trigger="click">
@@ -56,7 +60,8 @@ const handleDelete = (row: OfficeType) => {
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item @click="handleEdit(row)">Chỉnh sửa</el-dropdown-item>
-              <el-dropdown-item @click="handleDelete(row)">Xoá văn phòng</el-dropdown-item>
+              <el-dropdown-item >Cấu hình lộ trình</el-dropdown-item>
+              <el-dropdown-item @click="handleDelete(row)">Xoá tuyến</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>

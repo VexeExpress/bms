@@ -136,9 +136,17 @@ const handleClose = (key: string, keyPath: string[]) => {
           </NuxtLink>
         </el-menu-item>
         <el-menu-item index="7-3">Điểm dừng</el-menu-item>
-        <el-menu-item index="7-4">Tuyến</el-menu-item>
+        <el-menu-item index="7-4">
+          <NuxtLink to="/declaration/route">
+            Tuyến
+          </NuxtLink>
+        </el-menu-item>
         <el-menu-item index="7-5">Sơ đồ ghế</el-menu-item>
-        <el-menu-item index="7-6">Phương tiện</el-menu-item>
+        <el-menu-item index="7-6">
+          <NuxtLink to="/declaration/vehicle">
+            Phương tiện
+          </NuxtLink>
+        </el-menu-item>
         <el-menu-item index="7-7">Lịch chạy</el-menu-item>
         <el-menu-item index="7-8">Đại lý</el-menu-item>
         <el-menu-item index="7-9">Khoản mục</el-menu-item>

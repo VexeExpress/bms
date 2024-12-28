@@ -1,7 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
   layout: false,
-  middleware: ['auth']
 });
 import SelectOffice from "~/components/Office/SelectOffice.vue";
 </script>

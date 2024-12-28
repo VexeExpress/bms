@@ -11,6 +11,10 @@ const props = defineProps({
     type: Object as PropType<EmployeeType | null>,
     default: null,
   },
+  companyId: {
+    type: Number,
+    required: true,
+  },
 });
 const visible = ref(true);
 const emit = defineEmits(['close', 'saveEmployee', 'updateEmployee']);
@@ -32,7 +36,7 @@ const defaultEmployee: EmployeeType = {
   email: '',
   address: '',
   status: true,
-  companyId: 1,
+  companyId: props.companyId,
 };
 
 
