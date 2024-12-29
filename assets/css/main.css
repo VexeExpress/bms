@@ -4,3 +4,18 @@
 .el-main{
     padding: 0px !important;
 }
+.el-menu--horizontal>.el-sub-menu .el-sub-menu__title:hover {
+    background-color: #0072bc !important;
+}
+.el-menu--horizontal>.el-sub-menu .el-sub-menu__title{
+    color: #fff !important;
+}
+.el-menu--horizontal .el-menu .el-menu-item.is-active {
+    color: #fff ;
+}
+.el-menu--horizontal .el-menu .el-menu-item{
+    color: black ;
+}
+.el-menu--horizontal .el-menu-item:not(.is-disabled):hover{
+    color: #fff !important;
+}

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import {
   User,
-  DataAnalysis
+  DataAnalysis, Search
 } from '@element-plus/icons-vue'
 import {ElMessage} from "element-plus";
 import {useUserStore} from "~/store/userStore";
@@ -27,17 +27,23 @@ const logout = () => {
 
 <template>
   <el-menu
-      class="el-menu-demo"
+      class="el-menu-demo bg-amber-300"
       mode="horizontal"
       :ellipsis="false"
       @select="handleSelect"
   >
     <el-menu-item index="0" class="custom-menu-select">
-      <el-input v-model="input" style="width: 240px" placeholder="Tìm kiếm vé" />
+      <el-input
+          v-model="input"
+          class="ml-[-10px]"
+          style="width: 300px"
+          placeholder="Tìm kiếm vé"
+          :prefix-icon="Search"
+      />
     </el-menu-item>
 
     <el-menu-item index="3" >
-      <span>{{ fullName }}</span>
+      <span class="text-white">{{ fullName }}</span>
     </el-menu-item>
 
     <el-sub-menu index="2" class="custom-menu-support">
@@ -75,11 +81,20 @@ const logout = () => {
 }
 .el-menu--horizontal{
   height: 50px !important;
+  background-color: #0072bc;
 }
 .el-menu--horizontal>.el-menu-item.is-active {
   border-bottom: none !important;
 }
 .el-menu--horizontal>.el-menu-item:hover {
-  background-color: #fff !important;
+  background-color: #0072bc !important;
 }
+.el-menu-item:hover, .el-sub-menu__title:hover{
+  background-color: #0072bc !important;
+}
+.el-menu--horizontal>.el-menu-item[data-v-a81738bd][data-v-a81738bd]:hover{
+  background-color: #0072bc !important;
+}
+
+
 </style>

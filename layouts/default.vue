@@ -17,7 +17,7 @@ onBeforeMount(() => {
         <Menu/>
       </el-aside>
       <el-container>
-        <el-header>
+        <el-header >
           <Header/>
         </el-header>
         <el-main>
