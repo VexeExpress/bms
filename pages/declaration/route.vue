@@ -146,7 +146,7 @@ const handleUpdateRoute = async (routeData: RouteType) => {
     <el-button type="primary" :icon="Plus" @click="openAddModal">Tạo tuyến mới</el-button>
   </div>
   <TableRoute :routes="routes" :loading="loading" @edit="openEditModal" @delete="handleDeleteRoute"/>
-  <ModalRoute v-if="showModal" :mode="modalMode" :companyId="companyId" :route="selectedRoute" @close="closeModal" @add="handleAddRoute" @update="handleUpdateRoute"/>
+  <ModalRoute v-if="showModal" :mode="modalMode" :companyId="companyId!" :route="selectedRoute" @close="closeModal" @add="handleAddRoute" @update="handleUpdateRoute"/>
 </template>
 
 <style scoped>

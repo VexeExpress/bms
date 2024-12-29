@@ -7,3 +7,7 @@ export interface OfficeType{
     address: string;
     companyId: number;
 }
+export interface OfficeNameType{
+    id: number;
+    officeName: string;
+}

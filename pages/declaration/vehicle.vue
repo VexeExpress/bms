@@ -147,7 +147,7 @@ const handleDeleteVehicle = async (vehicleData: VehicleType) => {
       <el-button type="primary" :icon="Plus" @click="openAddModal">Thêm phương tiện</el-button>
     </div>
     <TableVehicle :vehicles="vehicles" :companyId="companyId" :loading="loading" @edit="openEditModal" @delete="handleDeleteVehicle"/>
-    <ModalVehicle v-if="showModal" :mode="modalMode" :companyId="companyId" :vehicle="selectedVehicle" @close="closeModal" @addVehicle="handleAddVehicle" @updateVehicle="handleUpdateVehicle"/>
+    <ModalVehicle v-if="showModal" :mode="modalMode" :companyId="companyId!" :vehicle="selectedVehicle" @close="closeModal" @addVehicle="handleAddVehicle" @updateVehicle="handleUpdateVehicle"/>
   </section>
 </template>
 

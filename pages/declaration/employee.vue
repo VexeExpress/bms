@@ -202,6 +202,6 @@ const handleChangePassword = async (employeeData: EmployeeType) => {
       <el-button type="primary" :icon="Plus" @click="openAddModal">Thêm nhân viên</el-button>
     </div>
     <TableEmployee :employees="employees" :loading="loading" @edit="openEditModal" @delete="handleDeleteEmployee" @lock="handleLockAccount" @changePassword="handleChangePassword"/>
-    <ModalEmployee v-if="showModal" :mode="modalMode" :companyId="companyId" :employee="selectedEmployee" @close="closeModal" @saveEmployee="handleAddEmployee" @updateEmployee="handleUpdateEmployee"/>
+    <ModalEmployee v-if="showModal" :mode="modalMode" :companyId="companyId!" :employee="selectedEmployee" @close="closeModal" @saveEmployee="handleAddEmployee" @updateEmployee="handleUpdateEmployee"/>
   </section>
 </template>

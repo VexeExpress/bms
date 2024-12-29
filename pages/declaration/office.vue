@@ -147,7 +147,7 @@ const handleUpdateOffice = async (officeData: OfficeType) => {
     <el-button type="primary" :icon="Plus" @click="openAddModal">Thêm văn phòng</el-button>
   </div>
   <TableOffice :offices="offices" :companyId="companyId" :loading="loading" @edit="openEditModal" @delete="handleDeleteOffice"/>
-  <ModalOffice v-if="showModal" :mode="modalMode" :companyId="companyId" :office="selectedOffice" @close="closeModal" @addOffice="handleAddOffice" @updateOffice="handleUpdateOffice"/>
+  <ModalOffice v-if="showModal" :mode="modalMode" :companyId="companyId!" :office="selectedOffice" @close="closeModal" @addOffice="handleAddOffice" @updateOffice="handleUpdateOffice"/>
 </section>
 </template>
 

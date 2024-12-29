@@ -14,6 +14,7 @@ const input = ref('')
 const router = useRouter();
 
 const userStore = useUserStore();
+const fullName = userStore.userData?.fullName;
 const logout = () => {
   router.push('/');
   userStore.clearUserData();
@@ -36,7 +37,7 @@ const logout = () => {
     </el-menu-item>
 
     <el-menu-item index="3" >
-      <span>Đặng Tuấn Thành</span>
+      <span>{{ fullName }}</span>
     </el-menu-item>
 
     <el-sub-menu index="2" class="custom-menu-support">
