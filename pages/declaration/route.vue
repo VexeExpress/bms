@@ -141,12 +141,14 @@ const handleUpdateRoute = async (routeData: RouteType) => {
 </script>
 
 <template>
+  <section class="m-[20px]">
   <div class="flex items-center justify-between">
     <h2 class="text-lg font-semibold">Danh sách tuyến</h2>
     <el-button type="primary" :icon="Plus" @click="openAddModal">Tạo tuyến mới</el-button>
   </div>
   <TableRoute :routes="routes" :loading="loading" @edit="openEditModal" @delete="handleDeleteRoute"/>
   <ModalRoute v-if="showModal" :mode="modalMode" :companyId="companyId!" :route="selectedRoute" @close="closeModal" @add="handleAddRoute" @update="handleUpdateRoute"/>
+  </section>
 </template>
 
 <style scoped>

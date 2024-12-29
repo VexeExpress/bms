@@ -141,7 +141,7 @@ const handleUpdateOffice = async (officeData: OfficeType) => {
 </script>
 
 <template>
-<section>
+  <section class="m-[20px]">
   <div class="flex items-center justify-between">
     <h2 class="text-lg font-semibold">Danh sách văn phòng</h2>
     <el-button type="primary" :icon="Plus" @click="openAddModal">Thêm văn phòng</el-button>

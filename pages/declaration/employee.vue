@@ -196,7 +196,7 @@ const handleChangePassword = async (employeeData: EmployeeType) => {
 };
 </script>
 <template>
-  <section>
+  <section class="m-[20px]">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold">Danh sách nhân viên</h2>
       <el-button type="primary" :icon="Plus" @click="openAddModal">Thêm nhân viên</el-button>
