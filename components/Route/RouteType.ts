@@ -8,3 +8,7 @@ export interface RouteType {
     note: string;
     displayOrder: number;
 }
+export interface RouteNameType {
+    id: number;
+    routeName: string;
+}

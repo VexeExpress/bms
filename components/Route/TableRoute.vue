@@ -2,13 +2,13 @@
 import type {RouteType} from "~/components/Route/RouteType";
 import {computed, ref} from "vue";
 import {Operation} from "@element-plus/icons-vue";
-import {formatCurrency} from "../../utils/formatCurrency";
+import {formatCurrency} from "~/utils/formatCurrency";
 
 const props = defineProps<{
   routes: RouteType[];
   loading: boolean;
 }>();
-const emit = defineEmits(['edit', 'delete']);
+const emit = defineEmits(['edit', 'delete', 'moveTop']);
 const search = ref('');
 const filterTableData = computed(() =>
     props.routes.filter(
@@ -24,6 +24,9 @@ const handleEdit = (row: RouteType) => {
 const handleDelete = (row: RouteType) => {
   emit('delete', row);
 }
+const handleMoveTop = (row: RouteType) => {
+  emit('moveTop', row);
+}
 </script>
 
 <template>
@@ -34,7 +37,7 @@ const handleDelete = (row: RouteType) => {
       </template>
     </el-table-column>
     <el-table-column label="Tên tuyến" prop="routeName" />
-    <el-table-column label="Tên tuyến rút gọn" prop="routeName" />
+    <el-table-column label="Tên tuyến rút gọn" prop="routeNameShort" />
     <el-table-column label="Giá vé cơ bản">
       <template #default="{ row }">
         {{ formatCurrency(row.displayPrice) }}
@@ -61,6 +64,7 @@ const handleDelete = (row: RouteType) => {
             <el-dropdown-menu>
               <el-dropdown-item @click="handleEdit(row)">Chỉnh sửa</el-dropdown-item>
               <el-dropdown-item >Cấu hình lộ trình</el-dropdown-item>
+              <el-dropdown-item @click="handleMoveTop(row)">Di chuyển lên</el-dropdown-item>
               <el-dropdown-item @click="handleDelete(row)">Xoá tuyến</el-dropdown-item>
             </el-dropdown-menu>
           </template>

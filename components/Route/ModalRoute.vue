@@ -73,7 +73,7 @@ function displayAsNumber(value: number | string): string {
     </template>
     <el-form :model="route" label-width="130px" class="px-[16px]">
       <el-row class="mt-3">
-        <el-col :span="12"><div class="grid-content " />
+        <el-col :span="12">
           <el-form-item label="Tên tuyến" prop="routeName">
             <el-input v-model="route.routeName" placeholder="Nhập tên tuyến" />
           </el-form-item>

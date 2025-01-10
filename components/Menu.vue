@@ -14,7 +14,7 @@ import {
   Promotion
 } from '@element-plus/icons-vue'
 
-const isCollapse = ref(false)
+const isCollapse = ref(true)
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }

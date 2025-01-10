@@ -7,6 +7,7 @@ import ModalRoute from "~/components/Route/ModalRoute.vue";
 
 const routes = ref<RouteType[]>([]);
 import {useUserStore} from "~/store/userStore";
+
 const userStore = useUserStore();
 const companyId = userStore.userData?.companyId;
 const loading = ref(true);
@@ -77,7 +78,7 @@ const handleDeleteRoute = async (routeData: RouteType) => {
       ElMessage.error(res.message || 'Xoá tuyến thất bại');
     }
   } catch (err: any) {
-    console.error('Error updating:', err);
+    console.error('Error delete:', err);
     const errorMessage = err?.data?.message || err?.response?.data?.message || 'Lỗi hệ thống, vui lòng thử lại sau';
     ElMessage.error(errorMessage);
   }
@@ -122,7 +123,7 @@ const handleUpdateRoute = async (routeData: RouteType) => {
       },
       body: JSON.stringify(routeData),
     });
-
+n
     if (res.code === 1000) {
       const index = routes.value.findIndex((e) => e.id === routeData.id);
       if (index !== -1) {
@@ -138,16 +139,48 @@ const handleUpdateRoute = async (routeData: RouteType) => {
     ElMessage.error(errorMessage);
   }
 }
+const handleMoveTopRoute = async (routeData: RouteType) => {
+  try {
+    const res = await $fetch<{
+      code: number;
+      message: string;
+    }>(`${config.public.apiUrl}/route/move-order-top/${routeData.id}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(routeData.id),
+    });
+
+    if (res.code === 1000) {
+      const index = routes.value.findIndex(route => route.id === routeData.id);
+
+      if (index > 0) {
+        [routes.value[index], routes.value[index - 1]] = [routes.value[index - 1], routes.value[index]];
+      }
+      ElMessage.success(res.message);
+    } else {
+      ElMessage.error(res.message || 'Di chuyển tuyến thất bại');
+    }
+  } catch (err: any) {
+    console.error('Error updating:', err);
+    const errorMessage = err?.data?.message || err?.response?.data?.message || 'Lỗi hệ thống, vui lòng thử lại sau';
+    ElMessage.error(errorMessage);
+  }
+}
 </script>
 
 <template>
   <section class="m-[20px]">
-  <div class="flex items-center justify-between">
-    <h2 class="text-lg font-semibold">Danh sách tuyến</h2>
-    <el-button type="primary" :icon="Plus" @click="openAddModal">Tạo tuyến mới</el-button>
-  </div>
-  <TableRoute :routes="routes" :loading="loading" @edit="openEditModal" @delete="handleDeleteRoute"/>
-  <ModalRoute v-if="showModal" :mode="modalMode" :companyId="companyId!" :route="selectedRoute" @close="closeModal" @add="handleAddRoute" @update="handleUpdateRoute"/>
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-semibold">Danh sách tuyến</h2>
+      <el-button type="primary" :icon="Plus" @click="openAddModal">Tạo tuyến mới</el-button>
+    </div>
+    <TableRoute :routes="routes" :loading="loading" @edit="openEditModal" @delete="handleDeleteRoute"
+                @moveTop="handleMoveTopRoute"/>
+    <ModalRoute v-if="showModal" :mode="modalMode" :companyId="companyId!" :route="selectedRoute" @close="closeModal"
+                @add="handleAddRoute" @update="handleUpdateRoute"/>
   </section>
 </template>
 
