@@ -17,7 +17,7 @@ onBeforeMount(() => {
         <Menu/>
       </el-aside>
       <el-container>
-        <el-header >
+        <el-header class="sticky top-0 z-10 shadow">
           <Header/>
         </el-header>
         <el-main>

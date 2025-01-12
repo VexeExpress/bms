@@ -2,9 +2,11 @@
 import ListTrip from "~/components/Trip/ListTrip.vue";
 import {useUserStore} from "~/store/userStore";
 import type {RouteNameType} from "~/components/Route/RouteType";
-import {ElMessage} from "element-plus";
-import type {TripDataType} from "~/components/Trip/TripType";
+import {ElMessage, type TabsPaneContext} from "element-plus";
+import type {TripDataType, TripScheduleType} from "~/components/Trip/TripType";
 import InfoTrip from "~/components/Trip/InfoTrip.vue";
+import MapTicket from "~/components/Ticket/MapTicket.vue";
+import type {TicketType} from "~/components/Ticket/TicketType";
 
 const userStore = useUserStore();
 const companyId = userStore.userData?.companyId;
@@ -99,10 +101,83 @@ const handleSelectTrip = (trip: TripDataType) => {
   selectedTrip.value = trip;
   console.log(selectedTrip.value);
 };
+const activeTab = ref('');
+const listTicket = ref<TicketType[]>([]);
+const loadingListTicket = ref(true);
+const handleTabClick = async (tab: TabsPaneContext, event: Event) => {
+  if (tab.props.name === '1') {
+    loadingListTicket.value = true;
+    try {
+      console.log('Tab Sơ đồ ghế');
+      const resTicket = await $fetch<{
+        code: number;
+        message: string;
+        result: TicketType[];
+      }>(`${config.public.apiUrl}/ticket/list-ticket/${selectedTrip.value?.id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (resTicket.code === 1000) {
+        listTicket.value = resTicket.result;
+        console.log(resTicket);
+      }
+    } catch (error) {
+      console.error('Error fetching ticket data:', error);
+    } finally {
+      loadingListTicket.value = false;
+    }
+  }
+  if (tab.props.name === '2') {
+    console.log('Tab Hành khách');
+  }
+  if (tab.props.name === '3') {
+    console.log('Tab ĐÓn/trả');
+  }
+  if (tab.props.name === '4') {
+    console.log('Tab Trung chuyển');
+  }
+  if (tab.props.name === '5') {
+    console.log('Tab Nghiệm thu');
+  }
+  if (tab.props.name === '6') {
+    console.log('Tab hàng hoá');
+  }
+}
+watch(selectedTrip, async (newTrip) => {
+  if (newTrip) {
+    loadingListTicket.value = true;
+    try {
+      const resTicket = await $fetch<{
+        code: number;
+        message: string;
+        result: TicketType[];
+      }>(`${config.public.apiUrl}/ticket/list-ticket/${newTrip.id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (resTicket.code === 1000) {
+        listTicket.value = resTicket.result;
+        console.log(resTicket);
+      }
+    } catch (error) {
+      console.error('Error fetching ticket data:', error);
+    } finally {
+      loadingListTicket.value = false;
+    }
+  }
+});
+
 </script>
 
 <template>
-  <section class="w-full px-2 flex items-center space-x-6">
+  <section class="w-full pt-2 px-2 flex items-center space-x-6">
     <el-button color="#626aef" @click="handleTodayClick">Hôm nay</el-button>
     <el-date-picker
         v-model="value_date"
@@ -126,13 +201,24 @@ const handleSelectTrip = (trip: TripDataType) => {
       />
     </el-select>
   </section>
-  <section class="px-2">
-    <ListTrip :trips="tripsData" :loading="loadingTripData" @selectTrip="handleSelectTrip"/>
+    <section class="px-2 pt-2">
+      <ListTrip :trips="tripsData" :loading="loadingTripData" @selectTrip="handleSelectTrip"/>
 
-  </section>
-  <section class="px-2" v-if="selectedTrip">
-    <InfoTrip :trip="selectedTrip" />
-  </section>
+    </section>
+    <section class="px-2" v-if="selectedTrip">
+      <InfoTrip :trip="selectedTrip" />
+      <el-tabs class="demo-tabs" v-model="activeTab" @tab-click="handleTabClick">
+        <el-tab-pane label="Sơ đồ ghế" name="1" >
+          <MapTicket :loading="loadingListTicket" :listTicket="listTicket"/>
+        </el-tab-pane>
+        <el-tab-pane label="Hành khách" name="2"></el-tab-pane>
+        <el-tab-pane label="Đón/Trả" name="3"></el-tab-pane>
+        <el-tab-pane label="Trung chuyển" name="4"></el-tab-pane>
+        <el-tab-pane label="Nghiệm thu" name="5"></el-tab-pane>
+        <el-tab-pane label="Hàng hoá" name="6"></el-tab-pane>
+      </el-tabs>
+    </section>
+
 
 
 

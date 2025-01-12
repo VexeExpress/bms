@@ -19,3 +19,6 @@
 .el-menu--horizontal .el-menu-item:not(.is-disabled):hover{
     color: #fff !important;
 }
+.el-header {
+    height: 50px !important;
+}

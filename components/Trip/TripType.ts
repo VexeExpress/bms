@@ -24,4 +24,5 @@ export interface TripDataType {
     vehicleId: number;
     seatChartName: string;
     licensePlate: string;
+    routeName: string;
 }
