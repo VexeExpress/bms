@@ -16,10 +16,9 @@ const selectTrip = (trip: TripDataType) => {
 </script>
 <template>
   <div class=" ">
-    <div v-if="props.loading" v-loading="props.loading" class="flex justify-center items-center min-h-[50px]">
+    <div v-if="props.loading" v-loading="props.loading" class="flex justify-center items-center min-h-[50px]"/>
 
-    </div>
-    <div class="grid grid-cols-4 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
+    <div class="grid grid-cols-4 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
       <div
           v-if="!props.loading"
           v-for="(item, index) in props.trips"

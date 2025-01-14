@@ -5,4 +5,7 @@ export interface TicketType {
     row: number;
     code: string;
     name: string;
+    bookingStatus: boolean;
+    phoneNumber: string;
+    fullName: string;
 }

@@ -13,11 +13,11 @@ onBeforeMount(() => {
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="auto" class="custom-menu">
-        <Menu/>
-      </el-aside>
+<!--      <el-aside width="auto" class="custom-menu">-->
+<!--        <Menu/>-->
+<!--      </el-aside>-->
       <el-container>
-        <el-header class="sticky top-0 z-10 shadow">
+        <el-header class="sticky top-0 z-20 shadow">
           <Header/>
         </el-header>
         <el-main>

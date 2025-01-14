@@ -2,10 +2,11 @@
 import { ref } from 'vue'
 import {
   User,
-  DataAnalysis, Search
+  DataAnalysis, Search, Plus, Menu, Expand
 } from '@element-plus/icons-vue'
-import {ElMessage} from "element-plus";
+import {type DropdownInstance, ElMessage} from "element-plus";
 import {useUserStore} from "~/store/userStore";
+import MenuApp from "~/components/MenuApp.vue";
 
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
@@ -23,6 +24,13 @@ const logout = () => {
     type: 'success',
   });
 };
+
+const dropdown1 = ref<DropdownInstance>()
+
+function showClick() {
+  if (!dropdown1.value) return
+  dropdown1.value.handleOpen()
+}
 </script>
 
 <template>
@@ -32,7 +40,23 @@ const logout = () => {
       :ellipsis="false"
       @select="handleSelect"
   >
-    <el-menu-item index="0" class="custom-menu-select">
+    <el-menu-item index="0" class="custom-menu-select menu-item">
+      <el-dropdown trigger="click">
+        <el-button class="el-dropdown-link">
+          <el-icon size="20"><Expand /></el-icon>
+        </el-button>
+        <template #dropdown>
+          <el-scrollbar height="515px">
+          <el-dropdown-menu>
+              <MenuApp/>
+          </el-dropdown-menu>
+          </el-scrollbar>
+        </template>
+      </el-dropdown>
+    </el-menu-item>
+
+
+    <el-menu-item index="1" class="custom-menu-select">
       <el-input
           v-model="input"
           class="ml-[-10px]"
@@ -42,11 +66,11 @@ const logout = () => {
       />
     </el-menu-item>
 
-    <el-menu-item index="3" >
+    <el-menu-item index="2" >
       <span class="text-white">{{ fullName }}</span>
     </el-menu-item>
 
-    <el-sub-menu index="2" class="custom-menu-support">
+    <el-sub-menu index="3" class="custom-menu-support">
       <template #title>
         <el-icon><DataAnalysis /></el-icon>
       </template>
@@ -55,7 +79,7 @@ const logout = () => {
       <el-menu-item index="2-3">Gửi phản hồi cho VinaHome</el-menu-item>
       <el-menu-item index="2-4">Lịch sử phản hồi</el-menu-item>
     </el-sub-menu>
-    <el-sub-menu index="3" class="custom-menu-account">
+    <el-sub-menu index="4" class="custom-menu-account">
       <template #title>
         <el-icon><User /></el-icon>
       </template>
@@ -95,6 +119,10 @@ const logout = () => {
 .el-menu--horizontal>.el-menu-item[data-v-a81738bd][data-v-a81738bd]:hover{
   background-color: #0072bc !important;
 }
-
-
+.el-menu-item [class^=el-icon] {
+  margin-right: 0 !important;
+}
+.menu-item{
+  padding: 10px !important;
+}
 </style>

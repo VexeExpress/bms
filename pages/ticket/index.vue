@@ -7,6 +7,7 @@ import type {TripDataType, TripScheduleType} from "~/components/Trip/TripType";
 import InfoTrip from "~/components/Trip/InfoTrip.vue";
 import MapTicket from "~/components/Ticket/MapTicket.vue";
 import type {TicketType} from "~/components/Ticket/TicketType";
+import BookingForm from "~/components/Ticket/BookingForm.vue";
 
 const userStore = useUserStore();
 const companyId = userStore.userData?.companyId;
@@ -16,94 +17,50 @@ const token = useCookie('access_token').value;
 
 const routesName = ref<RouteNameType[]>([]);
 const tripsData = ref<TripDataType[]>([]);
+const listTicket = ref<TicketType[]>([]);
+
+const activeTab = ref('');
 
 const loadingRouteName = ref(true);
 const loadingTripData = ref(true);
+const loadingListTicket = ref(true);
 
-onMounted(async () => {
-  if (!companyId) {
-    console.error('Company ID is missing or invalid');
-    return;
-  }
-  try {
-    const resRouteName = await $fetch<{
-      code: number,
-      message: string,
-      result: RouteNameType[]
-    }>(`${config.public.apiUrl}/route/list-route-name/${companyId}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (resRouteName.code === 1000) {
-      routesName.value = resRouteName.result
-    }
-    console.log("route name: ", resRouteName);
-  } catch (err: any) {
-    console.error('Error fetching:', err);
-    const errorMessage = err?.data?.message || err?.response?.data?.message || 'Lỗi hệ thống, vui lòng thử lại sau';
-    ElMessage.error(errorMessage);
-  } finally {
-    loadingRouteName.value = false;
-  }
-})
-const fetchDataTrip = async (date: string, route: number) => {
-  if (!date || !route) {
-    console.error('Date or route is missing');
-    return;
-  }
-  loadingTripData.value = true;
-  try {
-    const resTrip = await $fetch<{
-      code: number;
-      message: string;
-      result: TripDataType[];
-    }>(`${config.public.apiUrl}/trip/list-data-trip/${companyId}`, {
-      method: 'GET',
-      params: { date, route },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (resTrip.code === 1000) {
-      console.log('Fetched data:', resTrip);
-      tripsData.value = resTrip.result;
-    }
-  } catch (err: any) {
-    console.error('Error fetching trip data:', err);
-    const errorMessage =
-        err?.data?.message || err?.response?.data?.message || 'Lỗi hệ thống, vui lòng thử lại sau';
-    ElMessage.error(errorMessage);
-  } finally {
-    loadingTripData.value = false;
-  }
-};
-const today = new Date();
-const todayString = today.toISOString().split('T')[0];
-const handleTodayClick = () => {
-  value_date.value = todayString;
-};
 const value_date = ref('')
 const value_route = ref(null)
 
-watch([value_date, value_route], ([newDate, newRoute]) => {
-  if (newDate && newRoute) {
-    fetchDataTrip(newDate, newRoute);
-    console.log("Date: ", newDate);
-    console.log("Route: ", newRoute);
-    selectedTrip.value = null;
-  }
-});
 const selectedTrip = ref<TripDataType | null>(null);
+
+const isFormVisible = ref(false);
+
+const selectedTickets = ref<TicketType[]>([]);
+const today = new Date();
+const todayString = today.toISOString().split('T')[0];
+
+const openForm = (ticket: TicketType[]) => {
+  if (ticket && ticket.length) {
+    selectedTickets.value = ticket;
+    isFormVisible.value = true;
+  }
+};
+const closeForm = () => {
+  isFormVisible.value = false;
+  selectedTickets.value = [];
+};
+const handleTodayClick = () => {
+  value_date.value = todayString;
+};
 const handleSelectTrip = (trip: TripDataType) => {
   selectedTrip.value = trip;
   console.log(selectedTrip.value);
 };
-const activeTab = ref('');
-const listTicket = ref<TicketType[]>([]);
-const loadingListTicket = ref(true);
+const handleBooking = (data: TicketType) => {
+  console.log("Booking Data:", data);
+};
+const updateSelectedTickets = (updatedTickets: TicketType[]) => {
+  console.log('Update Tickets: ', updatedTickets);
+  selectedTickets.value = updatedTickets;
+};
+
 const handleTabClick = async (tab: TabsPaneContext, event: Event) => {
   if (tab.props.name === '1') {
     loadingListTicket.value = true;
@@ -146,7 +103,80 @@ const handleTabClick = async (tab: TabsPaneContext, event: Event) => {
     console.log('Tab hàng hoá');
   }
 }
+const fetchDataTrip = async (date: string, route: number) => {
+  if (!date || !route) {
+    console.error('Date or route is missing');
+    return;
+  }
+  loadingTripData.value = true;
+  try {
+    const resTrip = await $fetch<{
+      code: number;
+      message: string;
+      result: TripDataType[];
+    }>(`${config.public.apiUrl}/trip/list-data-trip/${companyId}`, {
+      method: 'GET',
+      params: { date, route },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (resTrip.code === 1000) {
+      console.log('Fetched data:', resTrip);
+      tripsData.value = resTrip.result;
+    }
+  } catch (err: any) {
+    console.error('Error fetching trip data:', err);
+    const errorMessage =
+        err?.data?.message || err?.response?.data?.message || 'Lỗi hệ thống, vui lòng thử lại sau';
+    ElMessage.error(errorMessage);
+  } finally {
+    loadingTripData.value = false;
+  }
+};
+
+onMounted(async () => {
+  if (!companyId) {
+    console.error('Company ID is missing or invalid');
+    return;
+  }
+  try {
+    const resRouteName = await $fetch<{
+      code: number,
+      message: string,
+      result: RouteNameType[]
+    }>(`${config.public.apiUrl}/route/list-route-name/${companyId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (resRouteName.code === 1000) {
+      routesName.value = resRouteName.result
+    }
+    console.log("route name: ", resRouteName);
+  } catch (err: any) {
+    console.error('Error fetching:', err);
+    const errorMessage = err?.data?.message || err?.response?.data?.message || 'Lỗi hệ thống, vui lòng thử lại sau';
+    ElMessage.error(errorMessage);
+  } finally {
+    loadingRouteName.value = false;
+  }
+})
+
+watch([value_date, value_route], ([newDate, newRoute]) => {
+  if (newDate && newRoute) {
+    fetchDataTrip(newDate, newRoute);
+    console.log("Date: ", newDate);
+    console.log("Route: ", newRoute);
+    selectedTrip.value = null;
+  }
+});
+
 watch(selectedTrip, async (newTrip) => {
+  selectedTickets.value = []
+  closeForm();
   if (newTrip) {
     loadingListTicket.value = true;
     try {
@@ -173,6 +203,7 @@ watch(selectedTrip, async (newTrip) => {
     }
   }
 });
+
 
 </script>
 
@@ -201,15 +232,14 @@ watch(selectedTrip, async (newTrip) => {
       />
     </el-select>
   </section>
-    <section class="px-2 pt-2">
+    <section class="px-2 pt-2" :class="{'mr-[280px]': isFormVisible}">
       <ListTrip :trips="tripsData" :loading="loadingTripData" @selectTrip="handleSelectTrip"/>
-
     </section>
-    <section class="px-2" v-if="selectedTrip">
+    <section class="px-2" v-if="selectedTrip" :class="{'mr-[280px]': isFormVisible}">
       <InfoTrip :trip="selectedTrip" />
       <el-tabs class="demo-tabs" v-model="activeTab" @tab-click="handleTabClick">
         <el-tab-pane label="Sơ đồ ghế" name="1" >
-          <MapTicket :loading="loadingListTicket" :listTicket="listTicket"/>
+          <MapTicket :loading="loadingListTicket" :listTicket="listTicket" @openForm="openForm" @closeForm="closeForm" :selectedTicket="selectedTickets"/>
         </el-tab-pane>
         <el-tab-pane label="Hành khách" name="2"></el-tab-pane>
         <el-tab-pane label="Đón/Trả" name="3"></el-tab-pane>
@@ -219,9 +249,14 @@ watch(selectedTrip, async (newTrip) => {
       </el-tabs>
     </section>
 
-
-
-
+  <BookingForm
+      v-if="isFormVisible"
+      :isVisible="isFormVisible"
+      :selectedTicket="selectedTickets"
+      @close="closeForm"
+      @submit="handleBooking"
+      @update:selectedTicket="updateSelectedTickets"
+  />
 </template>
 
 <style scoped>
